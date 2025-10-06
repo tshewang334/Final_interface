@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bhutan Ministry App</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ===== General Styles ===== */
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  background-color: #feffff;
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
+}
+.app-container {
+  width: 100%;
+  height: 100vh;
+  background-image: url(../IMAGES/what-are-the-local-governance-system-in-bhutan_9379.jpg);
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  padding: 20px;
+}
+
+/* ===== Header ===== */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  margin-bottom: 20px;
+}
+.logo-container { display: flex; justify-content: center; width: 100%; }
+.logo { width: 250px; height: auto; }
+.menu-icon { position: absolute; right: 0; cursor: pointer; top: 5px; }
+.menu-icon .bar {
+  width: 25px; height: 3px;
+  background-color: #fff;
+  margin: 5px 0; border-radius: 2px;
+}
+
+/* ===== Menu Overlay ===== */
+.side-menu {
+  position: fixed;
+  top: 0; right: -80%;
+  width: 20%; height: 100%;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(8px);
+  transition: right 0.3s ease-in-out;
+  padding: 40px 20px;
+  display: flex; flex-direction: column; gap: 20px;
+  box-shadow: -4px 0 10px rgba(0,0,0,0.2);
+}
+.side-menu.visible { right: 0; }
+.menu-button {
+  background: #ffbb29;
+  border: none;
+  border-radius: 10px;
+  padding: 15px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+/* ===== Sections ===== */
+section {
+  display: none;
+}
+section.active {
+  display: block;
+}
+
+/* ===== Home (Default Ministry Grid) ===== */
+.ministry-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin-top: 5%;
+}
+.ministry-item {
+  background-color: #ffbb29;
+  padding: 15px 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.9);
+  font-size: 16px;
+  color: #000;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.ministry-item:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 12px rgba(21,0,255,0.15);
+}
+
+/* ===== Add Ministry ===== */
+.form-section {
+  display: flex; 
+  flex-direction: column; 
+  gap: 10px; 
+  margin-top: 20px;
+  width: 100%;
+  align-items: center;
+}
+.form-section input {
+  padding: 10px; 
+  font-size: 14px;
+  border: 1px solid #ccc; 
+  border-radius: 6px;
+  width: 50%;
+  color: #000;
+  background-color: rgb(255, 180, 40);
+}
+.done-button {
+  align-self: flex-end;
+  background: #ffa811; 
+  color: #000000;
+  border: none; 
+  padding: 10px 20px;
+  border-radius: 6px; 
+  cursor: pointer;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bolder;
+}
+/* ===== Section Titles ===== */
+section h2 {
+  font-size: 22px;
+  margin-bottom: 20px;
+  color: #222;
+  text-align: center;
+}
+
+/* ===== Lists for Remove, Recently Deleted, Users ===== */
+.list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: rgba(255, 162, 0, 0.5);
+  backdrop-filter: blur(3px); /* blur intensity */
+  -webkit-backdrop-filter: blur(10px); /* for Safari support */
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.2);
+  padding-left: 10px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  margin-top: 20px;
+  font-weight: bold;
+  width: 50%;
+  margin-left: 300px;
+}
+
+/* ===== Individual Card Item ===== */
+.list-item {
+  background: rgba(255, 187, 41, 0.9); /* same theme as ministries */
+  padding: 15px 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* ===== Buttons inside Cards ===== */
+.list-item button {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-left: 8px;
+  transition: background 0.2s;
+  font-size: 14px;
+}
+.list-item button:hover {
+  background: #0056b3;
+}
+.list-item button.delete {
+  background: #dc3545; /* red for delete */
+}
+.list-item button.delete:hover {
+  background: #b02a37;
+}
+/* Table styling for Total Users and Recently Deleted */
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 10px;
+}
+
+.table-container table {
+  width: 100%;
+  border-collapse: collapse;
+  background: rgba(255, 187, 41, 0.9);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+.table-container th, 
+.table-container td {
+  padding: 12px 15px;
+  text-align: left;
+}
+
+.table-container th {
+  background-color: #ff9900;
+  color: #fff;
+  font-weight: 500;
+}
+
+.table-container tr:nth-child(even) {
+  background-color: rgba(255, 204, 102, 0.3);
+}
+
+.table-container button {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+.table-container button:hover {
+  background: #0056b3;
+}
+
+.table-container button.delete {
+  background: #dc3545;
+}
+
+.table-container button.delete:hover {
+  background: #b02a37;
+}
+
+
+.remove-btn {
+  background-color: #ff0000;
+  color: rgb(0, 0, 0);
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+  font-weight: bold;
+}
+
+.remove-btn:hover {
+  background-color: #e60000;
+}
+
+
+</style>
+</head>
+<body>
+<div class="app-container">
+  <header class="app-header">
+    <div class="logo-container">
+      <img src="../IMAGES/government logo.png" alt="Bhutan Government Logo" class="logo">
+    </div>
+    <div class="menu-icon" id="menu-icon">
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+    </div>
+  </header>
+
+  <!-- Side Menu -->
+  <div class="side-menu" id="side-menu">
+    <button class="menu-button" data-section="home">Home</button>
+    <button class="menu-button" data-section="add">Add Ministry</button>
+    <button class="menu-button" data-section="remove">Remove Ministry</button>
+    <button class="menu-button" data-section="recent">Recently Deleted</button>
+    <button class="menu-button" data-section="users">Total Users</button>
+    <button class="menu-button" id="logOutBtn" data-section="log out">Log out</button>
+  </div>
+
+  <!-- Sections -->
+  <section id="home" class="active">
+    <ul class="ministry-list" id="home-list"></ul>
+  </section>
+
+  <section id="add">
+    <h2>Add Ministry</h2>
+    <div class="form-section">
+      <input type="text" id="add-name" placeholder="Enter Ministry Name">
+      <input type="password" id="add-pin" placeholder="Enter PIN">
+      <input type="password" id="add-repin" placeholder="Re-enter PIN">
+      <button class="done-button" id="add-btn">Done</button>
+    </div>
+  </section>
+
+  <section id="remove">
+    <h2>Remove Ministry</h2>
+    <div id="remove-list"></div>
+  </section>
+
+  <section id="recent">
+    <h2>Recently Deleted</h2>
+    <div id="recent-list"></div>
+  </section>
+
+  <section id="users">
+    <h2>Total Users</h2>
+    <div id="user-list"></div>
+  </section>
+</div>
+
+<script>
+const menuIcon = document.getElementById("menu-icon");
+const sideMenu = document.getElementById("side-menu");
+const sections = document.querySelectorAll("section");
+const menuButtons = document.querySelectorAll(".menu-button");
+
+let ministries = [
+  { name:"Ministry of Agriculture & Livestock", users:0 },
+  { name:"Ministry of Education & Skills Development", users:0 },
+  { name:"Ministry of Finance", users:0, url:"four_major_sector.html" },
+  { name:"Ministry of Health", users:0 },
+  { name:"Ministry of Foreign Affairs & External Trade", users:0 },
+  { name:"Ministry of Home Affairs", users:0 },
+  { name:"Ministry of Industry, Commerce and Employment", users:0 },
+  { name:"Ministry of Infrastructure and Transport", users:0 },
+  { name:"Ministry of Energy and Natural Resources", users:0 }
+];
+let deletedMinistries = [];
+
+// Toggle menu
+menuIcon.addEventListener("click", () => {
+  sideMenu.classList.toggle("visible");
+});
+
+// Switch section
+menuButtons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    const target = btn.getAttribute("data-section");
+    sections.forEach(sec => sec.classList.remove("active"));
+    document.getElementById(target).classList.add("active");
+    sideMenu.classList.remove("visible");
+    render();
+  });
+});
+
+// Render all sections
+function render() {
+  // Home
+  const homeList = document.getElementById("home-list");
+  homeList.innerHTML = "";
+  ministries.forEach(min => {
+    const li = document.createElement("li");
+    li.className = "ministry-item";
+    li.textContent = min.name;
+
+    // 👇 When clicked, go to the linked page
+    li.addEventListener("click", () => {
+      window.location.href = min.url;
+    });
+
+    homeList.appendChild(li);
+  });
+
+    const removeList = document.getElementById("remove-list");
+    removeList.innerHTML = "";
+    ministries.forEach((min, i) => {
+    const div = document.createElement("div");
+    div.textContent = min.name + " ";
+
+    // Create button
+    const btn = document.createElement("button");
+    btn.textContent = "Remove";
+    btn.className = "remove-btn";   // ✅ Add your custom class
+    btn.onclick = () => removeMinistry(i);
+
+    // Append
+    div.appendChild(btn);
+    removeList.appendChild(div);
+    });
+
+// ghg
+
+// Recently Deleted (as table)
+    const recentList = document.getElementById("recent-list");
+    recentList.innerHTML = "";
+    recentList.className = "table-container";
+
+    if(deletedMinistries.length > 0){
+    const table = document.createElement("table");
+    table.innerHTML = `
+        <thead>
+        <tr>
+            <th>Ministry Name</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        ${deletedMinistries.map((min,i) => `
+            <tr>
+            <td>${min.name}</td>
+            <td>
+                <button onclick="restore(${i})">Restore</button>
+                <button class="delete" onclick="deleteForever(${i})">Delete</button>
+            </td>
+            </tr>
+        `).join("")}
+        </tbody>
+    `;
+    recentList.appendChild(table);
+    } else {
+    recentList.innerHTML = "<p style='text-align:center; padding:10px;'>No recently deleted ministries.</p>";
+    }
+
+  // Users
+  const userList = document.getElementById("user-list");
+  userList.innerHTML = "";
+  ministries.forEach(min => {
+    const div = document.createElement("div");
+    div.textContent = `${min.name} - Users: ${min.users}`;
+    userList.appendChild(div);
+  });
+}
+
+// Functions
+function removeMinistry(i) {
+  deletedMinistries.push(ministries[i]);
+  ministries.splice(i,1);
+  render();
+}
+function restore(i) {
+  ministries.push(deletedMinistries[i]);
+  deletedMinistries.splice(i,1);
+  render();
+}
+function deleteForever(i) {
+  deletedMinistries.splice(i,1);
+  render();
+}
+
+// Add Ministry
+document.getElementById("add-btn").addEventListener("click", () => {
+  const name = document.getElementById("add-name").value.trim();
+  const pin = document.getElementById("add-pin").value;
+  const repin = document.getElementById("add-repin").value;
+  if(!name || !pin || !repin){ alert("Fill all fields!"); return; }
+  if(pin !== repin){ alert("Pins don't match!"); return; }
+  ministries.push({ name, users:0 });
+  alert("Ministry added successfully!");
+  document.getElementById("add-name").value="";
+  document.getElementById("add-pin").value="";
+  document.getElementById("add-repin").value="";
+  sections.forEach(sec => sec.classList.remove("active"));
+  document.getElementById("home").classList.add("active");
+  render();
+});
+// Remove
+const removeList = document.getElementById("remove-list");
+removeList.innerHTML = "";
+removeList.className = "list-container";
+ministries.forEach((min,i) => {
+  const div = document.createElement("div");
+  div.className = "list-item";
+  div.innerHTML = `
+    ${min.name} 
+    <button onclick="removeMinistry(${i})">Remove</button>
+  `;
+  removeList.appendChild(div);
+});
+
+// Recently Deleted
+const recentList = document.getElementById("recent-list");
+recentList.innerHTML = "";
+recentList.className = "list-container";
+deletedMinistries.forEach((min,i) => {
+  const div = document.createElement("div");
+  div.className = "list-item";
+  div.innerHTML = `
+    ${min.name} 
+    <div>
+      <button onclick="restore(${i})">Restore</button>
+      <button class="delete" onclick="deleteForever(${i})">Delete</button>
+    </div>
+  `;
+  recentList.appendChild(div);
+});
+
+// Users
+const userList = document.getElementById("user-list");
+userList.innerHTML = "";
+userList.className = "list-container";
+ministries.forEach(min => {
+  const div = document.createElement("div");
+  div.className = "list-item";
+  div.textContent = `${min.name} - Users: ${min.users}`;
+  userList.appendChild(div);
+});
+
+// Initial load
+render();
+
+document.getElementById("logOutBtn").addEventListener("click", function() {
+  window.location.href = "../login/menu.html";  // 👈 change this to your file path
+});
+
+</script>
+</body>
+</html>
+

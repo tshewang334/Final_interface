@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interface</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            overflow: hidden;
+        }
+            /* === FLAG BACKGROUND === */
+        #flag {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+            z-index: 0; /* keep it behind container */
+        }
+
+        .flag_img {
+            position: relative;
+            background-image: url(../IMAGES/flag-of-bhutan-bhutan-flag-nation.jpg);
+            background-size: 100vw calc(100vh + 20px);
+            width: 2px;
+            height: 100vh;
+            display: inline-block;
+            animation: wave 300ms ease-in-out infinite alternate;
+        }
+
+        @keyframes wave {
+            0%   { top: 1px; }
+            100% { top: -1px; }
+        }
+        .container {
+            text-align: center;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(3px); /* blur intensity */
+            -webkit-backdrop-filter: blur(10px); /* for Safari support */
+            border-radius: 12px;
+            box-shadow: 0px 4px 12px rgba(0,0,0,0.2);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+            width: 100%; /* Responsive width */
+            max-width: 420px; /* Maximum width */
+            box-sizing: border-box; /* Include padding/border in width calculation */
+            overflow: hidden; /* prevent container overflow */
+            position: relative;
+            z-index: 2; /* above the flag */
+            height: 90vh; /* fixed height */
+            border: 3px solid #ffffff; /* boundary */
+            }
+        img {
+            width: 100px; /* Adjust size as needed */
+            margin-bottom: 20px;
+        }
+        .disclaimer {
+            margin: 20px 0;
+            font-size: 14px;
+            color: #ffffff;
+        }
+        .warning {
+            color: rgb(255, 255, 255);
+            font-size: 24px;
+        }
+        .warning-box {
+            background: #282626;
+            border-left: 4px solid #ff9900;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .warning-icon {
+            font-size: 24px;
+            color: #ff9900;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .warning-content {
+            flex-grow: 1;
+        }
+        
+        .warning-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #cc7a00;
+        }
+        
+        .warning-text {
+            line-height: 1.5;
+        }
+        .disclaimer-title {
+            font-weight: bold;
+            font-size: 18px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            border: 1px solid #c0c0c0;
+            border-radius: 5px;
+            width: 80%;
+            max-width: 300px;
+            margin-top: 10px;
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+        .revert-button {
+            display: inline-block; /* Prevent overlap */
+            background-color: #000000; /* Black color */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-top: 20px;
+            text-decoration: none; /* Remove underline */
+        }
+        .revert-button:hover {
+            background-color: #dd820a; /* Orange on hover */
+        }
+
+        .reverse-btn{
+            text-align: left;
+        }
+
+        .input-group {
+            margin-bottom: 18px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div id="flag"></div>
+    <div class="container">
+        <img src="../IMAGES/logo.png" alt="Logo">
+        <div class="disclaimer-title">DISCLAIMER</div>
+        <div class="disclaimer">
+            "This interface is not for normal user"
+            <div class="warning">Warning: Unauthorized access.</div>
+            <h1><i class="fas fa-exclamation-triangle"></i> Warning</h1>
+            <div class="section">
+                <div class="warning-box">
+                    <i class="fas fa-exclamation-triangle warning-icon"></i>
+                    <div class="warning-content">
+                        <div class="warning-title">Important Note</div>
+                        <div class="warning-text">Warning icons help users quickly identify potential issues, errors, or important information that requires attention.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="input-group">
+            <label for="code">Enter Required Code</label>
+            <input type="password" id="code" name="password" placeholder="Enter Code" required>
+        </div>
+        <div class="reverse-btn">
+            <a href="../login/menu.html" class="revert-button" aria-label="Revert to menu">Revert</a>
+            <a href="../admin/common-page-for-all.html" class="revert-button" aria-label="enter to admin interface">Done</a>
+        </div>
+    </div>
+
+    <script>
+        // You can add JavaScript functionality here if needed
+        document.getElementById('code').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                alert('Code submitted: ' + this.value);
+            }
+        });
+    </script>
+    <script>
+        const flag = document.getElementById('flag');
+        const screenWidth = window.innerWidth;
+
+        for (let i = 0; i < screenWidth; i += 2) { // step = 2px for performance
+            const flag_img = document.createElement('div');
+            flag_img.className = 'flag_img';
+            flag_img.style.backgroundPosition = -i + 'px 0px';
+            flag_img.style.animationDelay =-(i * 8) + 'ms';
+            flag.append(flag_img);
+        }
+  </script>
+</body>
+</html>

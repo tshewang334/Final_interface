@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ministry of Finances</title>
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* top align instead of center */
+  min-height: 100vh;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: linear-gradient(135deg, #f0f4ff, #e6e9f5);
+  padding: 20px; /* spacing around container */
+  overflow-y: auto; /* allow page scrolling */
+}
+
+.container {
+  width: 100%;
+  max-width: 100%; /* wider for big content */
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+  padding: 25px;
+  position: relative;
+  overflow: hidden; /* prevents content spilling outside */
+  animation: fadeIn 0.6s ease-in-out;
+  height: auto; /* flexible height */
+  max-height: 100vh; /* but limit it so it won’t go off screen */
+  overflow-y: auto; /* adds internal scroll if content is too long */
+}
+
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Back button */
+    .back-btn {
+      position: absolute;
+      left: 15px;
+      top: 15px;
+      font-size: 22px;
+      cursor: pointer;
+      color: #2a3eb1;
+      transition: transform 0.2s;
+    }
+    .back-btn:hover {
+      transform: scale(1.1);
+    }
+
+    /* Date buttons */
+    .date-buttons {
+      position: absolute;
+      right: 15px;
+      top: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .btn {
+      padding: 8px 14px;
+      border-radius: 20px;
+      border: none;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+      opacity: 0.9;
+    }
+
+    .btn.start { background: #28a745; }
+    .btn.end { background: #dc3545; }
+
+    /* Banner */
+    .banner {
+      display: flex;
+      justify-content: center;
+      margin-top: 40px;
+      margin-bottom: 15px;
+    }
+
+    .banner img {
+      max-width: 80%;
+    }
+
+    /* GST Section */
+    .gst-section {
+      background: #395dff;
+      padding: 18px;
+      border-radius: 12px;
+      color: #fff;
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .gst-section h3 {
+      margin-bottom: 12px;
+      font-size: 18px;
+    }
+
+    .gst-box {
+      background: #fff;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      font-size: 14px;
+      color: #333;
+      text-align: justify;
+      margin-bottom: 15px;
+      line-height: 1.5;
+    }
+
+    /* Report button */
+    .report {
+      padding: 12px;
+      background: #2a3eb1;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      font-weight: bold;
+      color: #fff;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+    .report:hover {
+      background: #1f2f85;
+    }
+
+    /* Hidden date input */
+    .hidden-date {
+      display: none;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Back button -->
+    <div class="back-btn" onclick="goBack()">⬅</div>
+
+    <!-- Start/End Date buttons -->
+    <div class="date-buttons">
+      <button class="btn start" onclick="openDatePicker('start')">Start Date</button>
+      <button class="btn end" onclick="openDatePicker('end')">End Date</button>
+    </div>
+
+    <!-- Hidden inputs for date -->
+    <input type="date" id="start-date" class="hidden-date" onchange="setDate('start')">
+    <input type="date" id="end-date" class="hidden-date" onchange="setDate('end')">
+
+    <!-- Banner -->
+    <div class="banner">
+      <img src="../IMAGES/www.mof_.gov_.bt-Vacancy-min-removebg-preview (1).png" alt="Ministry Banner">
+    </div>
+
+    <!-- GST Section -->
+    <div class="gst-section">
+      <h3>Goods and Services Tax (GST)</h3>
+      <div class="gst-box">
+        <p><b>Why this project failed?</b></p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia ipsam, ab eum officiis odio minus labore aliquam aspernatur. Voluptatem, aspernatur! Eos blanditiis, quidem autem doloremque, soluta repellat id architecto enim consectetur perspiciatis tempora eligendi quibusdam sint nihil. Quae in culpa velit totam eveniet temporibus consectetur aspernatur nobis adipisci iusto sint id iste ipsa harum ut consequatur inventore, enim qui tenetur quisquam itaque rem corporis voluptatum fugiat. Corrupti reiciendis earum placeat unde sed delectus dolor laudantium accusantium similique quos repellat, soluta repudiandae consequuntur blanditiis inventore dolores? Ex sunt, recusandae sequi corrupti reprehenderit ipsa et architecto tenetur placeat, debitis cum aliquam facilis optio quod deleniti? Porro, iure dicta. Maxime illum, aperiam quis quod voluptates odio, mollitia, blanditiis non adipisci eaque quaerat deserunt? Aperiam, ducimus repellat, cum nostrum dolor hic ad similique vitae nihil ipsum quaerat rem corrupti. Sint, quisquam tempora reprehenderit corporis quaerat libero possimus ullam veniam laboriosam natus quibusdam ducimus rerum blanditiis ad. Asperiores provident quasi veniam? Quod, consequatur sint enim commodi amet mollitia. Accusamus modi distinctio quos fuga quis. Harum porro id, similique quaerat sapiente ad facere dolores doloribus, veniam, perspiciatis quasi cupiditate? Quasi pariatur reprehenderit accusantium unde ratione nisi consectetur placeat esse ipsa, magni assumenda repellendus neque a! Aperiam dolor earum suscipit assumenda fugit totam mollitia officiis qui blanditiis dolorum, laborum porro quidem aliquid similique id eius corrupti vel nostrum fuga sint! Accusantium magni eveniet, nostrum quae nesciunt tempore nihil velit culpa! Laborum voluptas nesciunt eligendi nulla nisi, vitae consequatur ipsa voluptatibus quia dolores adipisci aspernatur. Cumque eius repellendus facilis repudiandae fugit. Pariatur optio quisquam praesentium nisi, et itaque rem, accusantium velit eligendi in corrupti similique ducimus dolorem facilis repellendus quae dolore ea fugit aut rerum adipisci reprehenderit molestiae! Animi error earum ullam enim? Nobis, laborum dolores, eveniet ipsa cum quos debitis laudantium corrupti iure unde sit doloribus vitae voluptatum provident fugiat asperiores ratione, ipsam quaerat. Velit, nihil. Voluptates libero quis, dolore iure itaque neque rem aspernatur quam, nostrum exercitationem praesentium eum sequi cupiditate autem repellendus dolorem possimus aut laudantium officia accusamus nesciunt dicta perferendis. Reiciendis eum laudantium sed! Nam reprehenderit praesentium, labore distinctio, nihil ad ullam totam incidunt numquam adipisci debitis sequi delectus officia rerum tempore veritatis dolorum! Sunt non architecto, incidunt reprehenderit saepe laudantium omnis odio est, hic molestiae accusantium cum aliquid debitis nesciunt sequi, ex voluptate similique! Voluptate, maiores ducimus ipsa, eligendi at deserunt officia sapiente sequi tenetur perferendis suscipit veniam facilis aliquid amet laborum deleniti quo architecto praesentium atque. Nobis eos assumenda qui adipisci quisquam excepturi ipsa cupiditate ex beatae dolorem officiis minima illum aliquam, cum ducimus mollitia nihil! Vel reiciendis doloribus quisquam voluptate laudantium explicabo provident numquam temporibus, atque expedita itaque ipsam, est reprehenderit optio nemo velit earum voluptates id commodi cupiditate eveniet nesciunt accusamus delectus aspernatur! Vero molestiae ipsum quae hic cupiditate, blanditiis optio illum. Dicta perspiciatis sed nam nulla illo! Obcaecati, cupiditate dolor unde totam facilis qui, ratione earum pariatur optio explicabo nisi illum consequatur saepe quo dolores. Rerum dolor quos eius eveniet atque, laboriosam, consectetur soluta enim, in distinctio nostrum aliquid.</p>
+      </div>
+      <button class="report" onclick="playReport()">▶ Report in audio format</button>
+    </div>
+  </div>
+
+  <script>
+    function goBack() {
+      // Navigate to another page
+      window.location.href = "Report_detail.html"; 
+    }
+
+    function openDatePicker(type) {
+      document.getElementById(`${type}-date`).click();
+    }
+
+    function setDate(type) {
+      const dateValue = document.getElementById(`${type}-date`).value;
+      if (dateValue) {
+        alert(`${type.charAt(0).toUpperCase() + type.slice(1)} Date set to: ${dateValue}`);
+      }
+    }
+
+    function playReport() {
+      const audio = new Audio("report-audio.mp3"); // replace with real audio file
+      audio.play().catch(() => {
+        alert("Audio playback not supported in this environment.");
+      });
+    }
+  </script>
+</body>
+</html>

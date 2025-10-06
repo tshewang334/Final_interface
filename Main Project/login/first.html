@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --primary-color: #ff8c00;
+            --primary-dark: #e67e00;
+            --text-color: #333;
+            --bg-color: #fff;
+            --input-border: #ddd;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --menu-bg: #2c3e50;
+            --menu-text: #ecf0f1;
+            }
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            /* margin: 0; */
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            display: flex;
+            overflow: hidden;
+        }
+
+            /* === FLAG BACKGROUND === */
+        #flag {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+            z-index: 0; /* keep it behind container */
+        }
+
+        .flag_img {
+            position: relative;
+            background-image: url(../IMAGES/flag-of-bhutan-bhutan-flag-nation.jpg);
+            background-size: 100vw calc(100vh + 20px);
+            width: 2px;
+            height: 100vh;
+            display: inline-block;
+            animation: wave 300ms ease-in-out infinite alternate;
+        }
+
+        @keyframes wave {
+            0%   { top: 1px; }
+            100% { top: -1px; }
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0px 4px 12px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 420px;
+            height: 90vh; /* fixed height */
+            border: 3px solid #ffffff; /* boundary */
+            display: flex;
+            flex-direction: column;
+            overflow: hidden; /* prevent container overflow */
+            position: relative;
+            z-index: 2; /* above the flag */
+        }
+        .logo{
+            width: auto;
+        }
+            img {
+                width: 150px; /* Adjust as needed */
+                margin-bottom: 20px;
+                margin-top: 80px;
+            }
+            h1 {
+                font-size: 24px;
+                color: #333;
+                margin: 10px 0;
+                margin-bottom: 50px;
+            }
+            p {
+                font-size: 18px;
+                color: #555;
+                margin: 5px 0 20px;
+                margin-top: 50px;
+            }
+            .start{
+                margin: 50px;
+            }
+            .get-started-button {
+                background-color: #ff8800; 
+                color: white;
+                border: none;
+                border-radius: 5px;
+                padding: 10px 20px;
+                cursor: pointer;
+                font-size: 16px;
+                text-decoration: none; 
+                width: 500px;
+                margin-top: 100px;
+            }
+            .get-started-button:hover {
+                background-color: #000000; 
+            }
+    </style>
+</head>
+<body>
+    <div id="flag"></div>
+    <div class="container">
+        <div class="logo">
+            <img src="../IMAGES/WhatsApp Image 2025-09-16 at 16.28.42_20eae344.jpg" alt="Logo"> 
+        </div>
+        <div>
+            <h1>For Better Future</h1>
+            <p>Bhutan Citizen Feedback and Report System</p>
+        </div>
+        <div class="start">
+            <a href="../login/menu.html" class="get-started-button">Get Started</a> 
+        </div>
+    </div>
+    <script>
+        const flag = document.getElementById('flag');
+        const screenWidth = window.innerWidth;
+
+        for (let i = 0; i < screenWidth; i += 2) { // step = 2px for performance
+            const flag_img = document.createElement('div');
+            flag_img.className = 'flag_img';
+            flag_img.style.backgroundPosition = -i + 'px 0px';
+            flag_img.style.animationDelay =-(i * 8) + 'ms';
+            flag.append(flag_img);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Select Event</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+      min-height: 100vh;
+    }
+
+    .app-container {
+      width: 100%;
+      background-color: #fff;
+      overflow: hidden;
+    }
+
+    /* --- Full Width Header Image --- */
+    .header img {
+      width: 50%;
+      height: 130px;
+      display: block;
+      margin-top: 20px;
+      margin-left: 27%;
+    }
+
+    /* --- Search Bar Section --- */
+    .search-bar {
+      margin: -30px auto 20px;
+      max-width: 500px;
+      width: 100%;
+      position: relative;
+      margin-top: 30px;
+      margin-bottom: 0px;
+    }
+
+    .search-bar input {
+      width: 100%;
+      padding: 12px 45px 12px 15px;
+      border-radius: 25px;
+      border: 1px solid #bb0f0f;
+      font-size: 16px;
+      outline: none;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .search-bar i {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #555;
+      font-size: 18px;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+
+    /* --- Main Content --- */
+    .content {
+      padding: 20px;
+      max-width: 900px;
+      margin: 0 auto;
+      margin-bottom: 0px;
+    }
+
+    .section-header {
+      font-size: 20px;
+      font-weight: 600;
+      color: #222;
+      margin-bottom: 20px;
+      text-align: center;
+      margin-top: 0px;
+    }
+
+    /* --- Event List & Cards --- */
+    .event-list {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 15px;
+    }
+
+    @media (min-width: 600px) {
+      .event-list {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .event-card {
+      background: linear-gradient(135deg, yellow, orange);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      border: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+    }
+
+    .event-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    }
+
+    .event-card-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #00008b;
+      margin-bottom: 8px;
+    }
+
+    .event-card-support {
+      font-size: 14px;
+      color: #555;
+      line-height: 1.4;
+    }
+
+    /* --- No results message --- */
+    .no-results {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 16px;
+      color: #bb0f0f;
+      font-weight: bold;
+      display: none;
+    }
+    .revert{
+      width: 100px;
+    }
+    .back{
+      margin-left: 10px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <div class="revert">
+      <button onclick="goBack()" class="back">⬅</button>
+    </div>
+    <!-- Header Image -->
+    <div class="header">
+      <img src="../IMAGES/www.mof_.gov_.bt-Vacancy-min-removebg-preview (1).png" alt="Logo">
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-bar">
+      <input type="text" placeholder="Search events...">
+      <i class="fas fa-search"></i>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="content">
+      <p class="section-header">Select Event to View Feedback</p>
+
+      <div class="event-list">
+        <div class="event-card" data-event-title="Event 1 (Goods and Services Tax GST)">
+          <p class="event-card-title">Event 1 (Goods and Services Tax GST)</p>
+          <p class="event-card-support">Supporting line text lorem ipsum dolor sit amet, consectetur.</p>
+        </div>
+
+        <div class="event-card" data-event-title="Event 2 (Infrastructure Projects)">
+          <p class="event-card-title">Event 2 (Infrastructure Projects)</p>
+          <p class="event-card-support">Supporting line text lorem ipsum dolor sit amet, consectetur.</p>
+        </div>
+
+        <div class="event-card" data-event-title="Event 3 (Budget Allocation)">
+          <p class="event-card-title">Event 3 (Budget Allocation)</p>
+          <p class="event-card-support">Supporting line text lorem ipsum dolor sit amet, consectetur.</p>
+        </div>
+
+        <div class="event-card" data-event-title="Event 4 (Revenue Policies)">
+          <p class="event-card-title">Event 4 (Revenue Policies)</p>
+          <p class="event-card-support">Supporting line text lorem ipsum dolor sit amet, consectetur.</p>
+        </div>
+
+        <div class="event-card" data-event-title="Event 5 (Financial Literacy)">
+          <p class="event-card-title">Event 5 (Financial Literacy)</p>
+          <p class="event-card-support">Supporting line text lorem ipsum dolor sit amet, consectetur.</p>
+        </div>
+      </div>
+
+      <!-- No results message -->
+      <p class="no-results">No events found</p>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const eventCards = document.querySelectorAll('.event-card');
+
+      // Click redirect
+      eventCards.forEach(card => {
+        card.addEventListener('click', () => {
+          const eventTitle = card.getAttribute('data-event-title');
+          localStorage.setItem('selectedEventTitle', eventTitle);
+          window.location.href = 'Citizen_report.html';
+        });
+      });
+
+      // 🔎 Search functionality
+      const searchInput = document.querySelector('.search-bar input');
+      const noResultsMsg = document.querySelector('.no-results');
+      searchInput.addEventListener('keyup', () => {
+        const filter = searchInput.value.toLowerCase();
+        let found = false;
+
+        eventCards.forEach(card => {
+          const title = card.getAttribute('data-event-title').toLowerCase();
+          if (title.includes(filter)) {
+            card.style.display = '';
+            found = true;
+          } else {
+            card.style.display = 'none';
+          }
+        });
+
+        // Show/hide "No results found"
+        noResultsMsg.style.display = found ? 'none' : 'block';
+      });
+    });
+    function goBack(){
+      window.location.href = "four_major_sector.html"
+    }
+  </script>
+</body>
+</html>

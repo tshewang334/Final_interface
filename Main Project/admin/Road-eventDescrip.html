@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ministry of Finances</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 420px;
+      margin: 20px;
+      padding: 20px;
+      background: rgb(255, 249, 249);
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+      position: relative;
+    }
+
+    /* Back button */
+    .back-btn {
+      margin: 10px;
+      cursor: pointer;
+      font-size: 20px;
+      text-align: left;
+    }
+
+    /* Logo */
+    .logo {
+      display: block;
+      margin: 0 auto;
+      width: 80px;
+    }
+
+    /* Heading */
+    h2 {
+      text-align: center;
+      color: #2a3eb1;
+      margin: 5px 0;
+    }
+
+    /* Date buttons */
+    .date-buttons {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .btn {
+      padding: 8px 15px;
+      border-radius: 20px;
+      border: none;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .btn.start { background-color: green; }
+    .btn.end { background-color: red; }
+
+    /* Banner */
+    .banner {
+      display: flex;
+      justify-content: center;
+      background: #fff;
+      border: 1px solid #ddd;
+      padding: 8px;
+      margin: 10px auto;
+      width: 95%;
+    }
+
+    .banner img {
+      max-width: 100%;
+    }
+
+    /* GST section */
+    .haa-raod-section {
+      background: #395dff;
+      margin: 15px auto;
+      padding: 15px;
+      width: 90%;
+      border-radius: 10px;
+      color: white;
+    }
+
+   
+
+    .haa-road-box {
+      background: white;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
+      font-size: 14px;
+      color: black;
+    }
+
+    .haa-road-box img {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .haa-road-box ul {
+      text-align: left;
+      padding-left: 20px;
+    }
+
+    .haa-road-box p {
+      margin-bottom: 8px;
+    }
+
+    /* View Report button */
+    .remind {
+      margin-top: 15px;
+      padding: 12px;
+      background: orange;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 100%;
+      font-weight: bold;
+      color: black;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Back button -->
+    <div class="back-btn" onclick="goBack()">⬅</div>
+
+    <!-- Logo -->
+    <img src="../assets/image/min_finance.jpg" alt="Logo" class="logo">
+
+    <!-- Heading -->
+    <h2>Ministry of Finances</h2>
+
+    <!-- Start/End Date buttons -->
+    <div class="date-buttons">
+      <button class="btn start" onclick="pickDate('start')">Start Date</button>
+      <button class="btn end" onclick="pickDate('end')">End Date</button>
+    </div>
+
+    <!-- Banner -->
+    <div class="banner">
+      <img src="../assets/image/banner.png" alt="Ministry Banner">
+    </div>
+    <div class="banner">
+      <img src="../assets/image/FAQ.png" alt="FAQ">
+    </div>
+
+    <!-- haa-road Section -->
+    <div class="haa-raod-section">
+      <div class="haa-road-box">
+        <img src="../assets/image/haa-road-2.jpg" alt="GST Diagram">
+        <ul>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas odit sunt exercitationem corrupti molestias consequatur est expedita reiciendis nam veritatis harum temporibus aliquid fugit molestiae inventore qui natus voluptatum, eos itaque quisquam obcaecati sapiente ea numquam? Voluptates a amet, architecto officiis magnam in modi eveniet excepturi perspiciatis voluptatem quod cupiditate.</p>
+        </ul>
+      </div>
+      <button class="remind" onclick="remind()">Remind</button>
+    </div>
+  </div>
+
+  <script>
+    function goBack() {
+      window.location.href = "min-finance.html"; // change this as needed
+    }
+
+    function pickDate(type) {
+      let date = prompt(`Pick ${type} date (YYYY-MM-DD):`);
+      if (date) {
+        alert(`${type.charAt(0).toUpperCase() + type.slice(1)} Date set to: ${date}`);
+      }
+    }
+
+    function remind() {
+      window.location.href = "datomatsu"; // link to your second interface page
+    }
+  </script>
+</body>
+</html>

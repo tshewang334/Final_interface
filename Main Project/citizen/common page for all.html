@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bhutan Ministry App</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+<style>
+    /* Basic reset and font styles */
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #feffff;
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+
+}
+
+.app-container {
+    width: 100%;
+    height: 100vh; /* full viewport height */
+    background-image: url(../IMAGES/what-are-the-local-governance-system-in-bhutan_9379.jpg);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 0; /* remove rounding so it touches edges */
+    overflow: hidden;
+    padding: 20px;
+    background-repeat: no-repeat;
+    background-size: cover;      /* scale the image to cover the container */
+    background-position: center; /* keep it centered */
+}
+
+/* Header styles */
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.logo {
+    width: 250px;
+    height: auto;
+}
+
+.menu-icon {
+    position: absolute;
+    right: 0;
+    cursor: pointer;
+    top: 5px; 
+}
+
+.menu-icon .bar {
+    width: 25px;
+    height: 3px;
+    background-color: #ffffff;
+    margin: 5px 0;
+    border-radius: 2px;
+}
+
+/* List item styles */
+.ministry-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 4 equal columns */
+    gap: 15px; /* space between items */
+    margin-top: 5%;
+}
+
+.ministry-item {
+    background-color: #ffbb29;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.9), 0 1px 3px rgba(0, 0, 0, 0.8);
+    font-size: 16px;
+    color: #000000;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ministry-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 12px rgba(21, 0, 255, 0.15), 0 2px 4px rgba(0, 5, 255, 0.1);
+}
+
+
+</style>
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="logo-container">
+                <img src="../IMAGES/government logo.png" alt="Bhutan Government Logo" class="logo">
+            </div>
+            <div class="menu-icon">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <ul class="ministry-list">
+                <li class="ministry-item">Ministry of Agriculture & Livestock</li>
+                <li class="ministry-item">Ministry of Education & Skills Development</li>
+                <li class="ministry-item">Ministry of Energy and Natural Resources</li>
+                <li class="ministry-item" onclick="goToNext()">Ministry of Finance</li>
+                <li class="ministry-item">Ministry of Foreign Affairs & External Trade</li>
+                <li class="ministry-item">Ministry of Home Affairs</li>
+                <li class="ministry-item">Ministry of Industry, Commerce and Employment</li>
+                <li class="ministry-item">Ministry of Infrastructure and Transport</li>
+                <li class="ministry-item">Ministry of Health</li>
+            </ul>
+        </main>
+    </div>
+    <script>
+        function goToNext(){
+            window.location.href = "four_major_sector.html"
+        }
+    </script>
+</body>
+</html>

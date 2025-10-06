@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feedback Action</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #fff;
+      height: 100vh;
+    }
+
+    .feedback-container {
+      width: 360px;
+      height: 95vh;
+      border: 1px solid #ddd;
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      position: relative;
+    }
+
+    /* Back button */
+    .back-btn {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      font-size: 20px;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    /* Avatar */
+    .avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: #eee;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      margin-top: 40px;
+    }
+
+    /* Citizen feedback button */
+    .citizen-feedback {
+      display: block;
+      width: 100%;
+      margin-top: 20px;
+      padding: 14px;
+      font-size: 14px;
+      border: 2px solid #888;
+      background: #f0f0f0;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+
+    .citizen-feedback:hover {
+      background: #ddd;
+    }
+
+    /* Dropdown */
+    .category-dropdown {
+      margin-top: 20px;
+      width: 70%;
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+      background: #e8d9fa;
+      appearance: none;
+      text-align: center;
+    }
+
+    /* Warning button */
+    .warning-btn {
+      position: absolute;
+      bottom: 20px;
+      width: 80%;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      background: #c7c7c7; /* disabled color */
+      color: black;
+      cursor: not-allowed;
+      transition: background 0.3s ease;
+    }
+
+    .warning-btn.active {
+      background: red;
+      color: white;
+      cursor: pointer;
+    }
+
+    /* Message box (hidden by default) */
+    .message-box {
+      display: none;
+      margin-top: 20px;
+      padding: 12px;
+      width: 90%;
+      border-radius: 10px;
+      background: red;
+      color: black;
+      font-size: 14px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="feedback-container">
+    <button class="back-btn" onclick="goBack()">⬅</button>
+
+    <div class="avatar">👤</div>
+
+    <!-- Citizen feedback now styled as button -->
+    <div class="citizen-feedback">Submitted by Citizen</div>
+
+    <select id="categoryDropdown" class="category-dropdown">
+      <option value="" disabled selected>The act falls under</option>
+      <option value="harassment">Harassment</option>
+      <option value="harshword">Harsh word</option>
+    </select>
+
+    <!-- Message box (appears after clicking warning) -->
+    <div id="messageBox" class="message-box">
+      We will make sure that the particular person is being updated with the message you have sent.
+    </div>
+
+    <button id="warningBtn" class="warning-btn" disabled>
+      Provide warning
+    </button>
+  </div>
+
+  <script>
+    const dropdown = document.getElementById('categoryDropdown');
+    const warningBtn = document.getElementById('warningBtn');
+    const messageBox = document.getElementById('messageBox');
+
+    dropdown.addEventListener('change', () => {
+      if (dropdown.value) {
+        warningBtn.disabled = false;
+        warningBtn.classList.add('active');
+      }
+    });
+
+    warningBtn.addEventListener('click', () => {
+      if (!warningBtn.disabled) {
+        messageBox.style.display = "block"; // Show message box
+
+        // Redirect to another page after 1 second
+        setTimeout(() => {
+          window.location.href = "feedback.html"; 
+        }, 1000);
+      }
+    });
+
+    function goBack() {
+      window.history.back();
+    }
+  </script>
+</body>
+</html>

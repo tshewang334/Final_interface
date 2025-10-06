@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create New Event</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background-color: #f2f5f9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header {
+      background-color: #c97b23;
+      color: white;
+      width: 100%;
+      text-align: center;
+      padding: 15px;
+      font-size: 1.4em;
+      font-weight: bold;
+    }
+
+    .container {
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      margin-top: 30px;
+      padding: 25px;
+      width: 90%;
+      max-width: 500px;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="number"],
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1em;
+      resize: none;
+    }
+
+    input[type="file"] {
+      margin-top: 10px;
+    }
+
+    #imagePreview {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 15px;
+      gap: 10px;
+    }
+
+    #imagePreview img {
+      width: 100px;
+      height: 100px;
+      border-radius: 6px;
+      object-fit: cover;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    button {
+      width: 100%;
+      background-color: #e4915a;
+      border: none;
+      color: white;
+      padding: 12px;
+      margin-top: 25px;
+      font-size: 1em;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #d37b3f;
+    }
+  </style>
+</head>
+<body>
+  <header>Create New Event</header>
+
+  <div class="container">
+    <label for="eventImages">Choose Event Images:</label>
+    <input type="file" id="eventImages" accept="image/*" multiple />
+    <div id="imagePreview"></div>
+
+    <label for="description">Event Description:</label>
+    <textarea id="description" rows="3" placeholder="Enter event details..."></textarea>
+
+    <label for="startDate">Start Date:</label>
+    <input type="date" id="startDate">
+
+    <label for="endDate">End Date:</label>
+    <input type="date" id="endDate">
+
+    <label for="budget">Budget Allocation (Nu):</label>
+    <input type="number" id="budget" placeholder="Enter amount...">
+
+    <button id="doneBtn">Done</button>
+  </div>
+
+  <script>
+    const eventImages = document.getElementById('eventImages');
+    const imagePreview = document.getElementById('imagePreview');
+    const doneBtn = document.getElementById('doneBtn');
+
+    let selectedImages = [];
+
+    eventImages.addEventListener('change', () => {
+      imagePreview.innerHTML = "";
+      selectedImages = [];
+      Array.from(eventImages.files).forEach(file => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = document.createElement('img');
+          img.src = e.target.result;
+          imagePreview.appendChild(img);
+          selectedImages.push(e.target.result);
+        };
+        reader.readAsDataURL(file);
+      });
+    });
+
+    doneBtn.addEventListener('click', () => {
+      const description = document.getElementById('description').value.trim();
+      const startDate = document.getElementById('startDate').value;
+      const endDate = document.getElementById('endDate').value;
+      const budget = document.getElementById('budget').value.trim();
+
+      if (!description || !startDate || !endDate || !budget) {
+        alert("Please fill out all fields!");
+        return;
+      }
+
+      const newEvent = {
+        id: Date.now(),
+        images: selectedImages,
+        description,
+        startDate,
+        endDate,
+        budget
+      };
+
+      let events = JSON.parse(localStorage.getItem('events')) || [];
+      events.push(newEvent);
+      localStorage.setItem('events', JSON.stringify(events));
+
+      alert("✅ Event created successfully!");
+      window.location.href = "GovDashboard.html";
+    });
+  </script>
+</body>
+</html>

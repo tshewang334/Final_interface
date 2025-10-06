@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Event Details</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+      min-height: 100vh;
+    }
+
+    .app-container {
+      width: 100%;
+      background-color: #fff;
+      overflow: hidden;
+    }
+
+    /* Header Logo */
+    .header img {
+      width: 50%;
+      height: 130px;
+      display: block;
+      margin: 20px auto 10px;
+    }
+
+    header {
+      text-align: center;
+      color: #00008b;
+      font-size: 24px;
+      font-weight: 700;
+      margin-top: 10px;
+    }
+
+    .content {
+      padding: 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      font-size: 20px;
+      font-weight: 600;
+      color: #222;
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    /* Event Cards Grid */
+    .event-list {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    @media (min-width: 600px) {
+      .event-list {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .event-card {
+      background: linear-gradient(135deg, yellow, orange);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      position: relative;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .event-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    }
+
+    .event-images {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .event-images img {
+      width: 90px;
+      height: 90px;
+      border-radius: 8px;
+      object-fit: cover;
+      border: 2px solid #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    .event-card h4 {
+      margin: 5px 0;
+      font-size: 16px;
+      font-weight: 600;
+      color: #00008b;
+    }
+
+    .event-card p {
+      margin: 4px 0;
+      font-size: 14px;
+      color: #333;
+    }
+
+    /* Menu Icon */
+    .menu {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+    }
+
+    /* Dropdown Menu */
+    .menu-options {
+      display: none;
+      position: absolute;
+      right: 0;
+      top: 25px;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      z-index: 10;
+    }
+
+    .menu-options button {
+      display: block;
+      width: 100%;
+      padding: 8px 12px;
+      background: none;
+      border: none;
+      text-align: left;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .menu-options button:hover {
+      background-color: #f4f4f4;
+    }
+
+    .no-events {
+      text-align: center;
+      font-weight: bold;
+      color: #bb0f0f;
+      margin-top: 40px;
+    }
+
+    .back{
+      margin-left: 10px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container">
+    <button onclick="goBack()" class="back">⬅</button>
+    <!-- Header Image -->
+    <div class="header">
+      <img src="../IMAGES/www.mof_.gov_.bt-Vacancy-min-removebg-preview (1).png" alt="Logo">
+    </div>
+
+    <header>Event Details</header>
+
+    <div class="content">
+      <p class="section-header">List of Created Events</p>
+      <div class="event-list" id="eventContainer"></div>
+      <p class="no-events" id="noEventsMsg">No events created yet.</p>
+    </div>
+  </div>
+
+  <script>
+    const eventContainer = document.getElementById('eventContainer');
+    const noEventsMsg = document.getElementById('noEventsMsg');
+    let events = JSON.parse(localStorage.getItem('events')) || [];
+
+    function renderEvents() {
+      eventContainer.innerHTML = "";
+      if (events.length === 0) {
+        noEventsMsg.style.display = "block";
+        return;
+      } else {
+        noEventsMsg.style.display = "none";
+      }
+
+      events.forEach((event) => {
+        const card = document.createElement('div');
+        card.classList.add('event-card');
+        card.innerHTML = `
+          <div class="menu">
+            <i class="fa-solid fa-ellipsis-vertical" onclick="toggleMenu(${event.id})"></i>
+            <div class="menu-options" id="menu-${event.id}">
+              <button onclick="editEvent(${event.id})">✏ Edit</button>
+              <button onclick="deleteEvent(${event.id})">🗑 Delete</button>
+            </div>
+          </div>
+          <div class="event-images">
+            ${event.images.map(img => `<img src="${img}">`).join('')}
+          </div>
+          <h4>${event.description}</h4>
+          <p><b>Start Date:</b> ${event.startDate}</p>
+          <p><b>End Date:</b> ${event.endDate}</p>
+          <p><b>Budget:</b> Nu. ${event.budget}</p>
+        `;
+        eventContainer.appendChild(card);
+      });
+    }
+
+    function toggleMenu(id) {
+      const menu = document.getElementById(`menu-${id}`);
+      const allMenus = document.querySelectorAll('.menu-options');
+      allMenus.forEach(m => {
+        if (m !== menu) m.style.display = "none";
+      });
+      menu.style.display = (menu.style.display === "block") ? "none" : "block";
+    }
+
+    function deleteEvent(id) {
+      if (confirm("Are you sure you want to delete this event?")) {
+        events = events.filter(e => e.id !== id);
+        localStorage.setItem('events', JSON.stringify(events));
+        renderEvents();
+      }
+    }
+
+    function editEvent(id) {
+      const eventToEdit = events.find(e => e.id === id);
+      const newDescription = prompt("Update description:", eventToEdit.description);
+      if (newDescription !== null && newDescription.trim() !== "") {
+        eventToEdit.description = newDescription.trim();
+      }
+      const newBudget = prompt("Update budget:", eventToEdit.budget);
+      if (newBudget !== null && newBudget.trim() !== "") {
+        eventToEdit.budget = newBudget.trim();
+      }
+      localStorage.setItem('events', JSON.stringify(events));
+      renderEvents();
+    }
+
+    renderEvents();
+    function goBack(){
+      window.location.href = "GovDashboard.html"
+    }
+  </script>
+</body>
+</html>

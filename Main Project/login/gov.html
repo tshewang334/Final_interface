@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page with Hamburger Menu</title>
+  <style>
+    /* Reset and Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    :root {
+      --primary-color: #ff8c00;
+      --primary-dark: #e67e00;
+      --text-color: #333;
+      --bg-color: #fff;
+      --input-border: #ddd;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      --menu-bg: #2c3e50;
+      --menu-text: #ecf0f1;
+    }
+    
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      color: var(--text-color);
+      line-height: 1.6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #flag {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      overflow: hidden;
+      z-index: 0; /* keep it behind container */
+    }
+
+    .flag_img {
+      position: relative;
+      background-image: url(../IMAGES/flag-of-bhutan-bhutan-flag-nation.jpg);
+      background-size: 100vw calc(100vh + 20px);
+      width: 2px;
+      height: 100vh;
+      display: inline-block;
+      animation: wave 300ms ease-in-out infinite alternate;
+    }
+
+    @keyframes wave {
+      0%   { top: 1px; }
+      100% { top: -1px; }
+    }
+    
+   /* === YOUR ORIGINAL CONTAINER === */
+    .container {
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(3px); /* blur intensity */
+      -webkit-backdrop-filter: blur(10px); /* for Safari support */
+      border-radius: 12px;
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.2);
+      width: 100%;
+      max-width: 420px;
+      height: 90vh; /* fixed height */
+      border: 3px solid #ffffff; /* boundary */
+      display: flex;
+      flex-direction: column;
+      overflow: hidden; /* prevent container overflow */
+      position: relative;
+      z-index: 2; /* above the flag */
+    }
+
+    /* Logo */
+    .logo {
+      display: block;
+      margin: 50px auto 25px;
+      width: 120px;
+      height: auto;
+      border-radius: 50%;
+      box-shadow: var(--shadow);
+    }
+    
+    /* Language Toggle */
+    .language-toggle {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 25px;
+      gap: 12px;
+    }
+    
+    .lang-label {
+      font-size: 14px;
+      font-weight: 500;
+    }
+    
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 30px;
+    }
+    
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    } 
+    
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 34px;
+    } 
+    
+    .slider:before { 
+      position: absolute;
+      content: "";
+      height: 22px;
+      width: 22px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+    
+    input:checked + .slider {
+      background-color: var(--primary-color);
+    }
+    
+    input:checked + .slider:before {
+      transform: translateX(30px);
+    }
+    
+    /* Form Styles */
+    form {
+      margin-bottom: 20px;
+    }
+    
+    .input-group {
+      margin-bottom: 18px;
+      text-align: left;
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid var(--input-border);
+      border-radius: 8px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+    
+    input[type="text"]:focus,
+    input[type="password"]:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.2);
+    }
+
+    .button-group {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+
+    /* Button */
+    .Done-btn {
+      color: #ffffff;
+      width: 15%;
+      padding: 6px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      background-color: #000000;
+      text-decoration: none;
+    }
+    .Revert-btn {
+      color: #ffffff;
+      width: 15%;
+      padding: 6px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      background-color: #000000;
+      text-decoration: none;
+    }
+    
+    .Done-btn:hover {
+      background-color: var(--primary-dark);
+    }
+    .Revert-btn:hover {
+      background-color: var(--primary-dark);
+    }
+    .lang-label{
+      color: #e67e00;
+      font-size: large;
+      font-weight: bold;
+    }
+
+    .CID{
+      font-weight: bold;
+      color: #e67e00;
+      font-size: large;
+    }
+
+    /* Container for the input and dropdown */
+    .input-container {
+      position: relative;
+      width: 100%; /* Adjust as needed */
+      margin-bottom: 20px;
+    }
+    /* Responsive Design */
+    @media (max-width: 480px) {
+      .container {
+        padding: 25px 20px;
+      }
+      
+      .logo {
+        width: 100px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="flag"></div>
+  <!-- Overlay for closing menu when clicking outside -->
+  <div class="container">
+    <!-- Logo -->
+    <img src="../IMAGES/logo.png" alt="Company Logo" class="logo">
+
+    <!-- Language Toggle -->
+    <div class="language-toggle" role="group" aria-label="Language switch">
+      <span class="lang-label">English</span>
+      <label class="switch">
+        <input type="checkbox" id="langToggle" name="langToggle" aria-checked="false">
+        <span class="slider"></span>
+      </label>
+      <span class="lang-label dzongkha">རྫོང་ཁ</span>
+    </div>
+    
+    <form id="loginForm">
+      <div class="input-group">
+          <label for="cid" class="CID">Department Name</label>
+          <input type="text" id="cid" name="cid" placeholder="Enter Department Name" required>
+      </div>
+    </form>
+      <div class="input-group">
+        <label for="password" class="CID">Department ID</label>
+        <input type="password" id="password" name="password" placeholder="Enter Department ID" required>
+      </div>
+      <div class="button-group">    
+        <a href="../login/menu.html" class="Revert-btn">Revert</a>
+        <a href="../government/GovDashboard.html" class="Done-btn">Done</a>
+      </div> 
+    </form>
+  </div>
+
+  <script>    
+    // Form submission handling
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Basic validation
+      const cid = document.getElementById('cid').value;
+      const password = document.getElementById('password').value;
+      
+      if (cid && password) {
+        // In a real implementation, this would send the data to a server
+        alert('Login attempted with Department Name: ' + cid);
+        // You would typically redirect or process the login here
+      }
+    });
+    
+    // Language toggle functionality
+    document.getElementById('langToggle').addEventListener('change', function() {
+      const isDzongkha = this.checked;
+      this.setAttribute('aria-checked', isDzongkha);
+      
+      // This would change the actual language in a real implementation
+      if (isDzongkha) {
+        alert("Language changed to Dzongkha");
+        // You would update all text elements to Dzongkha here
+      } else {
+        alert("Language changed to English");
+        // You would update all text elements to English here
+      }
+    });
+  </script>
+    <script>
+    const flag = document.getElementById('flag');
+    const screenWidth = window.innerWidth;
+
+    for (let i = 0; i < screenWidth; i += 2) { // step = 2px for performance
+      const flag_img = document.createElement('div');
+      flag_img.className = 'flag_img';
+      flag_img.style.backgroundPosition = -i + 'px 0px';
+      flag_img.style.animationDelay =-(i * 8) + 'ms';
+      flag.append(flag_img);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }  
+
+      :root {
+        --primary-color: #ff8c00;
+        --primary-dark: #e67e00;
+        --text-color: #333;
+        --bg-color: #fff;
+        --input-border: #ddd;
+        --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        --menu-bg: #2c3e50;
+        --menu-text: #ecf0f1;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        color: var(--text-color);
+        line-height: 1.6;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+        position: relative;
+        overflow-x: hidden;
+      }
+
+       /* === FLAG BACKGROUND === */
+    #flag {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      overflow: hidden;
+      z-index: 0; /* keep it behind container */
+    }
+
+    .flag_img {
+      position: relative;
+      background-image: url(../IMAGES/flag-of-bhutan-bhutan-flag-nation.jpg);
+      background-size: 100vw calc(100vh + 20px);
+      width: 2px;
+      height: 100vh;
+      display: inline-block;
+      animation: wave 300ms ease-in-out infinite alternate;
+    }
+
+    @keyframes wave {
+      0%   { top: 1px; }
+      100% { top: -1px; }
+    }
+    
+    .container {
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(3px); /* blur intensity */
+        -webkit-backdrop-filter: blur(10px); /* for Safari support */
+        border-radius: 12px;
+        box-shadow: 0px 4px 12px rgba(0,0,0,0.2);
+        width: 100%;
+        max-width: 420px;
+        height: 90vh; /* fixed height */
+        border: 3px solid #ffffff; /* boundary */
+        display: flex;
+        flex-direction: column;
+        overflow: hidden; /* prevent container overflow */
+        position: relative;
+        z-index: 2; /* above the flag */
+        }
+      .logo {
+        display: block;
+        margin: 10px auto 25px;
+        width: 120px;
+        height: auto;
+        border-radius: 50%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+
+      .register {
+          font-size: 18px;
+          color: #000000;
+          margin: 5px 0 20px;
+          font-weight: bold;
+          margin-left: 10px;
+          margin-top: 0px;
+          margin-bottom: 0px;
+      }
+
+      .p_condition{
+          font-size: xx-small;
+      }
+
+      .input-group {
+        margin-bottom: 18px;
+        text-align: left;
+      }
+      
+      label {
+        display: block;
+        margin-bottom: 6px;
+        font-size: 14px;
+        font-weight: 500;
+      }
+      
+      input[type="text"],
+      input[type="password"] {
+        width: 100%;
+        padding: 14px;
+        border: 1px solid var(--input-border);
+        border-radius: 8px;
+        font-size: 16px;
+        transition: all 0.3s ease;
+      }
+      
+      input[type="text"]:focus,
+      input[type="password"]:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.2);
+      }
+
+      .reg{
+          font-size: 18px;
+          color: #000000;
+          margin: 5px 0 20px; 
+      }
+
+      .re{
+          color: #e67e00;
+      }
+
+      .existing_acc{
+          color: #e67e00;
+      }
+
+      .existing{
+        margin-left: 10px;
+      }
+
+      .button-group {
+          display: flex;
+          justify-content: space-between;
+          margin-top: 10px;
+          margin-bottom: 10px;
+          margin-left: 10px;
+          margin-right: 10px;
+      }
+
+      .Back {
+          display: inline-block; /* Prevent overlap */
+          background-color: #000000; /* Black color */
+          color: white;
+          border: none;
+          border-radius: 5px;
+          padding: 10px 20px;
+          cursor: pointer;
+          margin-top: 30px;
+          text-decoration: none; /* Remove underline */
+      }
+      .Back:hover {
+          background-color: #dd820a; /* Orange on hover */
+      }
+      
+
+      .Next {
+          display: inline-block; /* Prevent overlap */
+          background-color: #000000; /* Black color */
+          color: white;
+          border: none;
+          border-radius: 5px;
+          padding: 10px 20px;
+          cursor: pointer;
+          margin-top: 30px;
+          text-decoration: none; /* Remove underline */
+        }
+        .Next:hover {
+            background-color: #dd820a; /* Orange on hover */
+        }
+
+      .input-group {
+        margin-bottom: 18px;
+        text-align: left;
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+    
+      label {
+        display: block;
+        margin-bottom: 6px;
+        font-size: 14px;
+        font-weight: 500;
+      }
+      
+      input[type="text"],
+      input[type="password"] {
+        width: 100%;
+        padding: 14px;
+        border: 1px solid var(--input-border);
+        border-radius: 8px;
+        font-size: 16px;
+        transition: all 0.3s ease;
+      }
+      
+      input[type="text"]:focus,
+      input[type="password"]:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.2);
+      }
+
+    .CID{
+      font-weight: bold;
+      color: #e67e00;
+      font-size: large;
+    }
+
+    .p_condition{
+      font-weight: bold;
+      color: #e67e00;
+      font-size: smaller;
+    }
+      @media (max-width: 480px) {
+        .container {
+          padding: 25px 20px;
+        }
+        
+        .logo {
+          width: 100px;
+        }
+        
+        input[type="text"],
+        input[type="password"] {
+          padding: 12px;
+        }
+      }
+
+    </style>
+</head>
+<body>
+  <div id="flag"></div>
+  <div class="container">
+    <div class="content">
+      <div class="overlay" id="overlay"></div>
+      <img src="../IMAGES/logo.png" alt="Company Logo" class="logo">
+
+      <div>
+          <p class="register">Registration</p>
+      </div>
+      <div>
+          <div class="input-group">
+              <label for="cid" class="CID">CID</label>
+              <input type="text" id="cid" name="cid" placeholder="Enter your CID" required>
+          </div>
+          <div class="input-group">
+              <label for="password" class="CID">Create Password</label>
+              <p class="p_condition">your password should atleast consist of minimum of 8 chanracter.</p>
+              <input type="password" id="cid" name="cid" placeholder="Create a strong password" required>
+          </div>
+          <div class="input-group">
+            <label for="password" class="CID">Confirm Password</label>
+            <input type="password" id="cid" name="cid" placeholder="Confirm your password password" required>
+          </div>
+          <!-- <div class="reg">
+            I aggree to  <a href="#" aria-label="Register new account" class="re">Term and Condition</a>
+          </div > -->
+          <div class="button-group">
+            <a href="../login/menu.html" class="Back">Back</a>
+            <a href="#" class="Next">Next</a>
+          </div>
+          <div class="existing">
+              Already have an account <a href="../login/menu.html" aria-label="Register new account" class="existing_acc">Login</a>
+          </div>
+      </div>
+  </div>
+    <script>
+    const flag = document.getElementById('flag');
+    const screenWidth = window.innerWidth;
+
+    for (let i = 0; i < screenWidth; i += 2) { // step = 2px for performance
+      const flag_img = document.createElement('div');
+      flag_img.className = 'flag_img';
+      flag_img.style.backgroundPosition = -i + 'px 0px';
+      flag_img.style.animationDelay =-(i * 8) + 'ms';
+      flag.append(flag_img);
+    }
+  </script>
+</body>
+</html>
+
+

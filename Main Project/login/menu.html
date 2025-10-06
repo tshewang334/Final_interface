@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page with Hamburger Menu</title>
+  <style>
+    /* Reset and Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    :root {
+      --primary-color: #ff8c00;
+      --primary-dark: #e67e00;
+      --text-color: #333;
+      --bg-color: #fff;
+      --input-border: #ddd;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      --menu-bg: #2c3e50;
+      --menu-text: #ecf0f1;
+    }
+    
+    body {
+      font-family: Arial, sans-serif;
+      color: var(--text-color);
+      line-height: 1.6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+      position: relative;
+      overflow-x: hidden;
+      overflow: hidden;
+    }
+
+        /* === FLAG BACKGROUND === */
+    #flag {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      overflow: hidden;
+      z-index: 0; /* keep it behind container */
+    }
+
+    .flag_img {
+      position: relative;
+      background-image: url(../IMAGES/flag-of-bhutan-bhutan-flag-nation.jpg);
+      background-size: 100vw calc(100vh + 20px);
+      width: 2px;
+      height: 100vh;
+      display: inline-block;
+      animation: wave 300ms ease-in-out infinite alternate;
+      display: flex;
+    }
+
+    @keyframes wave {
+      0%   { top: 1px; }
+      100% { top: -1px; }
+    }
+    
+    /* === YOUR ORIGINAL CONTAINER === */
+    .container {
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(3px); /* blur intensity */
+      -webkit-backdrop-filter: blur(10px); /* for Safari support */
+      border-radius: 12px;
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.2);
+      width: 100%;
+      max-width: 420px;
+      height: 90vh; /* fixed height */
+      border: 3px solid #ffffff; /* boundary */
+      display: flex;
+      flex-direction: column;
+      overflow: hidden; /* prevent container overflow */
+      position: relative;
+      z-index: 2; /* above the flag */
+    }
+    
+    /* Navigation */
+    .navbar {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+    }
+    
+    .hamburger {
+      width: 35px;
+      height: 30px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      z-index: 1001;
+    }
+    
+    .hamburger span {
+      display: block;
+      height: 3px;
+      width: 100%;
+      background: var(--text-color);
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+    
+    .hamburger:hover span {
+      background: var(--primary-color);
+      transform: scaleX(1.1);
+    }
+    
+    /* Sidebar Menu */
+    .sidebar-menu {
+      position: fixed;
+      top: 0;
+      right: -300px;
+      width: 300px;
+      height: 100%;
+      background-color: var(--menu-bg);
+      color: var(--menu-text);
+      padding: 80px 20px 20px;
+      transition: right 0.3s ease;
+      z-index: 999;
+      box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+      overflow-y: auto;
+    }
+    
+    .sidebar-menu.active {
+      right: 0;
+    }
+    
+    .menu-header {
+      text-align: center;
+      margin-bottom: 30px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .menu-header h2 {
+      color: var(--primary-color);
+      font-size: 22px;
+      font-weight: bold;
+    }
+    
+    .menu-items {
+      list-style: none;
+    }
+    
+    .menu-items li {
+      margin-bottom: 15px;
+    }
+    
+    .menu-items a {
+      display: block;
+      color: var(--menu-text);
+      text-decoration: none;
+      padding: 12px 15px;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+      font-size: 18px;
+    }
+    
+    .menu-items a:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      padding-left: 20px;
+      color: var(--primary-color);
+    }
+    
+    .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      color: var(--menu-text);
+      font-size: 24px;
+      cursor: pointer;
+    }
+    
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 998;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+    }
+    
+    .overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    /* Logo */
+    .logo {
+      display: block;
+      margin: 10px auto 25px;
+      width: 120px;
+      height: auto;
+      border-radius: 50%;
+      margin-top: 40px;
+    }
+    
+    /* Language Toggle */
+    .language-toggle {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 25px;
+      gap: 12px;
+      color: #e67e00;
+      font-weight: bolder;
+      font-size: xx-large;
+    }
+    
+    .lang-label {
+      font-size: 14px;
+      font-weight: 500;
+    }
+    
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 30px;
+    }
+    
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 34px;
+    }
+    
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 22px;
+      width: 22px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+    
+    input:checked + .slider {
+      background-color: var(--primary-color);
+    }
+    
+    input:checked + .slider:before {
+      transform: translateX(30px);
+    }
+    
+    /* Form Styles */
+    form {
+      margin-bottom: 20px;
+    }
+    
+    .input-group {
+      margin-bottom: 18px;
+      text-align: left;
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    
+    input[type="text"], /* size of the text box */
+    input[type="password"] {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid var(--input-border);
+      border-radius: 8px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+    
+    input[type="text"]:focus,  /* hover effect in text box */
+    input[type="password"]:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.2);
+    }
+    
+    .forgot {
+      text-align: right;
+      margin: -8px 0 20px;
+      margin-right: 10px;
+      color: #ffffff;
+      font-weight: bold;
+    }
+    
+    .forgot a {
+      color: var(--bg-color);
+      font-size: 14px;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    .forgot a:hover {
+      color: var(--primary-color);
+    }
+    
+    /* Button */
+    .login-btn {
+      width: auto;
+      padding: 14px;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-left: 170px;
+    }
+    
+    .login-btn:hover {
+      background-color: var(--primary-dark);
+    }
+    
+    /* Register Link */
+    .register {
+      margin-top: 20px;
+      font-size: 15px;
+      margin-left: 10px;
+    }
+    
+    .register a {
+      color: var(--primary-color);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+    
+    .register a:hover {
+      text-decoration: underline;
+    }
+
+    .CID{
+      font-weight: bold;
+      color: #e67e00;
+      font-size: large;
+    }
+
+    .lang-label {
+      color: #e67e00;
+      font-size: large;
+      font-weight: bold;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 480px) {
+      .container {
+        padding: 25px 20px;
+      }
+      
+      .logo {
+        width: 100px;
+      }
+      
+      input[type="text"],
+      input[type="password"] {
+        padding: 12px;
+      }
+      
+      .sidebar-menu {
+        width: 280px;
+        right: -280px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Overlay for closing menu when clicking outside -->
+  <div class="overlay" id="overlay"></div>
+  <div id="flag"></div>
+  
+  <!-- Sidebar Menu -->
+  <div class="sidebar-menu" id="sidebarMenu">
+    <button class="close-btn" id="closeMenu">×</button>
+    <div class="menu-header">
+      <h2>Menu</h2>
+    </div>
+    <ul class="menu-items">
+      <li><a href="#">Rate Us</a></li>
+      <li><a href="#">Locator</a></li>
+      <li><a href="#">Setting</a></li>
+      <li><a href="#">About Us</a></li>
+      <li><a href="../login/admin_login.html">Admin</a></li>
+      <li><a href="../login/gov.html">Government</a></li>
+    </ul>
+  </div>
+
+  <div class="container">
+    <!-- Navigation with hamburger -->
+    <nav class="navbar">
+      <div class="hamburger" id="hamburgerMenu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+
+    <!-- Logo -->
+    <img src="../IMAGES/logo.png" alt="Company Logo" class="logo">
+
+    <!-- Language Toggle -->
+    <div class="language-toggle" role="group" aria-label="Language switch">
+      <span class="lang-label">English</span>
+      <label class="switch">
+        <input type="checkbox" id="langToggle" name="langToggle" aria-checked="false">
+        <span class="slider"></span>
+      </label>
+      <span class="lang-label dzongkha">རྫོང་ཁ</span>
+    </div>
+
+    <!-- Login Form -->
+    <form id="loginForm">
+      <div class="input-group">
+        <label for="cid" class="CID">CID</label>
+        <input type="text" id="cid" name="cid" placeholder="Enter your CID" required>
+      </div>
+      
+      <div class="input-group">
+        <label for="password" class="CID">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+      </div>
+      
+      <div class="forgot">
+        <a href="../login/forget.html" aria-label="Forgot password">Forgot Password?</a>
+      </div>
+      
+      <button type="submit" class="login-btn" onclick="redirectToNextPage()">Login</button>
+    </form>
+
+    <!-- Register Link -->
+    <div class="register">
+      Don't have an account? <a href="../login/registration.html" aria-label="Register new account">Register</a>
+    </div>
+  </div>
+
+  <script>
+    // Menu functionality
+    const hamburgerMenu = document.getElementById('hamburgerMenu');
+    const sidebarMenu = document.getElementById('sidebarMenu');
+    const closeMenu = document.getElementById('closeMenu');
+    const overlay = document.getElementById('overlay');
+    
+    function openMenu() {
+      sidebarMenu.classList.add('active');
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function closeMenuFunc() {
+      sidebarMenu.classList.remove('active');
+      overlay.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+    
+    hamburgerMenu.addEventListener('click', openMenu);
+    closeMenu.addEventListener('click', closeMenuFunc);
+    overlay.addEventListener('click', closeMenuFunc);
+    
+    // Close menu when pressing Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeMenuFunc();
+      }
+    });
+    
+    // Form submission handling
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Basic validation
+      const cid = document.getElementById('cid').value;
+      const password = document.getElementById('password').value;
+      
+      if (cid && password) {
+        // In a real implementation, this would send the data to a server
+        alert('Login attempted with CID: ' + cid);
+        // You would typically redirect or process the login here
+      }
+    });
+    
+    // Language toggle functionality
+    document.getElementById('langToggle').addEventListener('change', function() {
+      const isDzongkha = this.checked;
+      this.setAttribute('aria-checked', isDzongkha);
+      
+      // This would change the actual language in a real implementation
+      if (isDzongkha) {
+        alert("Language changed to Dzongkha");
+        // You would update all text elements to Dzongkha here
+      } else {
+        alert("Language changed to English");
+        // You would update all text elements to English here
+      }
+    });
+  </script>
+    <script>
+    const flag = document.getElementById('flag');
+    const screenWidth = window.innerWidth;
+
+    for (let i = 0; i < screenWidth; i += 2) { // step = 2px for performance
+      const flag_img = document.createElement('div');
+      flag_img.className = 'flag_img';
+      flag_img.style.backgroundPosition = -i + 'px 0px';
+      flag_img.style.animationDelay =-(i * 8) + 'ms';
+      flag.append(flag_img);
+    }
+
+    function redirectToNextPage(){
+      window.location.href = "../citizen/common page for all.html"
+    } 
+
+  </script>
+</body>
+</html>

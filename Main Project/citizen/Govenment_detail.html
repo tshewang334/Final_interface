@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ministry of Finances</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      width: 100%;
+      padding: 20px;
+      background: rgb(255, 249, 249);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+      position: relative;
+    }
+
+    /* Back button */
+    .back-btn {
+      margin: 10px;
+      cursor: pointer;
+      font-size: 20px;
+      text-align: left;
+    }
+
+    /* Logo */
+    .logo {
+      display: block;
+      margin: 0 auto;
+      width: 80px;
+    }
+
+    /* Heading */
+    h2 {
+      text-align: center;
+      color: #2a3eb1;
+      margin: 5px 0;
+    }
+
+    /* Date buttons */
+    .date-buttons {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .btn {
+      padding: 8px 15px;
+      border-radius: 20px;
+      border: none;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .btn.start { background-color: green; }
+    .btn.end { background-color: red; }
+
+    /* Banner */
+    .banner {
+      display: flex;
+      justify-content: center;
+      background: #fff;
+      border: 1px solid #ddd;
+      padding: 8px;
+      width: 95%;
+      margin-top: 10px;
+      margin: 35px auto;
+    }
+
+    .banner img {
+      max-width: 100%;
+    }
+
+    /* GST section */
+    .gst-section {
+      background: #395dff;
+      margin: 15px auto;
+      padding: 15px;
+      width: 90%;
+      border-radius: 10px;
+      color: white;
+    }
+
+    .gst-section h3 {
+      margin: 0;
+      padding-bottom: 10px;
+      text-align: center;
+    }
+
+    .gst-box {
+      background: white;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
+      font-size: 14px;
+      color: black;
+      max-width: 80%;
+      margin-left: 9%;
+    }
+
+    .gst-box img {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .gst-box ul {
+      text-align: left;
+      padding-left: 20px;
+    }
+
+    .gst-box li {
+      margin-bottom: 8px;
+    }
+
+    /* View Report button */
+    .view-report {
+      margin-top: 15px;
+      padding: 12px;
+      background: orange;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 100%;
+      font-weight: bold;
+      color: black;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Back button -->
+    <div class="back-btn" onclick="goBack()">⬅</div>
+
+    <!-- Start/End Date buttons -->
+    <div class="date-buttons">
+      <button class="btn start" onclick="pickDate('start')">Start Date</button>
+      <button class="btn end" onclick="pickDate('end')">End Date</button>
+    </div>
+
+    <!-- Banner -->
+    <div class="banner">
+      <img src="../IMAGES/www.mof_.gov_.bt-Vacancy-min-removebg-preview (1).png" alt="Ministry Banner">
+    </div>
+
+    <!-- GST Section -->
+    <div class="gst-section">
+      <h3>Financial Literacy</h3>
+      <div class="gst-box">
+        <img src="../IMAGES/haa-road-2.jpg" alt="GST Diagram">
+        <ul>
+          <li>Financial Literacy is a comprehensive, multi-stage, destination-based indirect tax levied on most goods and services.</li>
+          <li>Follows a simple design with a uniform tax rate on value addition.</li>
+          <li>All taxes a business pays while providing goods/services are eligible for input tax credit.</li>
+          <li>Businesses can claim credit against tax collected when filing returns with DRC.</li>
+          <li>Businesses can claim credit against tax collected when filing returns with DRC.</li>
+          <li>Businesses can claim credit against tax collected when filing returns with DRC.</li>
+          <li>Businesses can claim credit against tax collected when filing returns with DRC.</li>
+          <li>Businesses can claim credit against tax collected when filing returns with DRC.</li>
+        </ul>
+      </div>
+      <button class="view-report" onclick="goToReport()">View report</button>
+    </div>
+  </div>
+
+  <script>
+    function goBack() {
+      window.location.href = "Government.html"; // change this as needed
+    }
+
+    function pickDate(type) {
+      let date = prompt(`Pick ${type} date (YYYY-MM-DD):`);
+      if (date) {
+        const btn = document.querySelector(`.btn.${type}`);
+        btn.outerHTML = `<div class="date-display">${type.charAt(0).toUpperCase() + type.slice(1)} Date: ${date}</div>`;
+      }
+    }
+
+    function goToReport() {
+      window.location.href = "min-finance.html"; // link to your second interface page
+    }
+  </script>
+</body>
+</html>

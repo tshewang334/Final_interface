@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forgot Password</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #ff8c00;
+            --primary-dark: #e67e00;
+            --text-color: #333;
+            --bg-color: #fff;
+            --input-border: #ddd;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --menu-bg: #2c3e50;
+            --menu-text: #ecf0f1;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+
+         /* === FLAG BACKGROUND === */
+        #flag {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+            z-index: 0; /* keep it behind container */
+        }
+
+        .flag_img {
+            position: relative;
+            background-image: url(../IMAGES/flag-of-bhutan-bhutan-flag-nation.jpg);
+            background-size: 100vw calc(100vh + 20px);
+            width: 2px;
+            height: 100vh;
+            display: inline-block;
+            animation: wave 300ms ease-in-out infinite alternate;
+        }
+
+        @keyframes wave {
+            0%   { top: 1px; }
+            100% { top: -1px; }
+        }
+
+     /* === YOUR ORIGINAL CONTAINER === */
+        .container {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(3px); /* blur intensity */
+            -webkit-backdrop-filter: blur(10px); /* for Safari support */
+            border-radius: 12px;
+            box-shadow: 0px 4px 12px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 420px;
+            height: 90vh; /* fixed height */
+            border: 3px solid #ffffff; /* boundary */
+            display: flex;
+            flex-direction: column;
+            overflow: hidden; /* prevent container overflow */
+            position: relative;
+            z-index: 2; /* above the flag */
+        }
+
+            /* Scrollable content */
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0px;
+            margin-top: 0px;
+        }
+        img {
+                width: 150px; /* Adjust as needed */
+                margin-bottom: 30px;
+                margin-top: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 18px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid var(--input-border);
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.2);
+        }
+
+        .cid{
+            text-align: left;
+            margin-left: 10px;
+            width: 100px;
+        }
+
+        .username{
+            text-align: left;
+            margin-left: 10px;
+        }
+
+        .box{
+            margin-left: 10px;
+            margin-right: 1000px;
+            margin-bottom: 20px;
+            width: 380px;
+        }
+
+        .fing_div{
+            margin-top: 25px;
+        }
+
+        .fingre_print{
+            width: 70px;
+            height: 70px;
+            margin-top: 40px;
+        }
+
+        .Back {
+            color: #ffffff;
+            width: 15%;
+            padding: 6px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            background-color: #000000;
+            text-decoration: none;
+            text-align: center;
+            margin-left: 10px;
+        }
+        
+        .Back:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .Revert-btn{
+            text-align: justify;
+        }
+
+        @media (max-width: 480px) {
+        .container {
+            padding: 25px 20px;
+        }
+        
+        .logo {
+            width: 100px;
+        }
+        }
+        
+    </style>
+</head>
+<body>
+    <div id="flag"></div>
+    <div class="container">
+        <div class="content">
+            <div>
+                <img src="../IMAGES/logo.png" alt="">
+            </div>
+            <div>
+                <div class="box">
+                    <label for="cid" class="cid">CID</label>
+                    <input type="text" id="cid" name="cid" placeholder="Enter your CID" required>
+                </div>
+                <div class="box">
+                    <label for="username" class="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Enter your Username" required>
+                </div>
+                <div class="fing_div">
+                    <img src="../IMAGES/fingerprint-19.png" alt="fingre print" class="fingre_print" >
+                </div>
+                <div class="Revert-btn">
+                <a href="../login/menu.html" class="Back">Back</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const flag = document.getElementById('flag');
+        const screenWidth = window.innerWidth;
+
+        for (let i = 0; i < screenWidth; i += 2) { // step = 2px for performance
+            const flag_img = document.createElement('div');
+            flag_img.className = 'flag_img';
+            flag_img.style.backgroundPosition = -i + 'px 0px';
+            flag_img.style.animationDelay =-(i * 8) + 'ms';
+            flag.append(flag_img);
+        }
+    </script>
+</body>
+</html>

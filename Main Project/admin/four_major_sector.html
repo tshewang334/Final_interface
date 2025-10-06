@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Homepage</title>
+    <style>
+    body {
+        margin: 0;
+        font-family: 'Roboto', sans-serif;
+        background-color: #f0f2f5;
+        display: flex;
+        justify-content: center;
+        height: 100vh;
+    }
+
+    .app-container {
+        width: 100%;
+        height: 100vh;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+
+    /* --- Emblem and Centering --- */
+    .emblem-container {
+        width: 100%;
+        text-align: center;
+        /* Move emblem up to overlay the header area */
+        margin-top: 35px; 
+        margin-bottom: 35px; 
+        margin-right: 90px;
+    }
+
+    .emblem {
+        width: 100%; /* Adjust size as needed */
+        height: 90hv;
+        background-color:#fff;
+    }
+
+    /* --- Content & Buttons Styling --- */
+    .content {
+    /* Removed top padding, kept side and bottom */
+        width: 60%;
+        margin-left: auto;
+        margin-right: 0;
+        background-color: rgb(247, 133, 4);
+        height: 100vh;
+    }
+
+    .menu-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 30px; /* Space between buttons */
+        width: 50%;
+        margin-left: 25%;
+    }
+
+    .menu-button {
+        width: 100%;
+        padding: 15px 10px;
+        border: 2px solid rgb(0, 0, 0); /* Dark red border */
+        border-radius: 10px; /* Rounded corners */
+        background-color: #fff;
+        color: black; /* black text */
+        font-size: 20px;
+        font-weight: 500;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Prominent shadow */
+        cursor: pointer;
+        transition: background-color 0.2s;
+        margin-right: 30px;
+        margin-top: 10px;
+    }
+
+    .menu-button:hover{
+        background-color: rgb(255, 196, 129);
+    }
+
+    /* Flex wrapper for both left and right panels */
+    .main-wrapper {
+        display: flex;
+        width: 100%;
+        height: 100vh
+    }
+
+    /* Left panel styles */
+    .left-panel {
+        width: 40%; /* Adjust width as needed */
+        background-color: #ffffff; /* Light gray for visibility */
+        height: 100vh;
+        display: inline-block;
+    }
+
+    .left-panel img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .minister_pic{
+        width: 100%;
+        height: 100hv;
+    }
+    .revert{
+      width: 100px;
+      position: absolute;
+    }
+    .back{
+      margin-left: 10px;
+      margin-top: 10px;
+    }
+</style>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <div class="app-container">
+<div class="main-wrapper">
+    <div class="left-panel">
+        <div class="revert">
+            <button onclick="goBack()" class="back">⬅</button>
+        </div>
+        <img src="../IMAGES/Lekey-Dorji-Copy-2.jpg" alt="photo of the minister" class="minister_pic">
+    </div>
+
+    <div class="content">  
+        <div class="emblem-container">
+            <img src="../IMAGES/www.mof_.gov_.bt-Vacancy-min-removebg-preview (1).png" alt="Emblem" class="emblem">
+        </div>
+        <div class="menu-buttons">
+            <button class="menu-button" onclick="goToFeedback()">Feedback</button>
+            <button class="menu-button" onclick="goToSuggestion()">Suggestions</button>
+            <button class="menu-button" onclick="goToReport()">Report</button>
+            <button class="menu-button" onclick="goToEventDetail()">Event</button>
+        </div>
+    </div>
+</div>
+
+        </div>
+    </div>
+<script>
+  function goToFeedback() {
+    window.location.href = 'feedback_detail.html';
+  }
+  function goToSuggestion(){
+    window.location.href = 'suggestion_detail.html'
+  }
+  function goToReport(){
+    window.location.href = 'Report_detail.html'
+  }
+function goToEventDetail(){
+    window.location.href = 'Event.html'
+  }
+function goBack(){
+    window.location.href = "common-page-for-all.html"
+  }
+</script>
+</body>
+</html>

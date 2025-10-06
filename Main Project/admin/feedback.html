@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>suggestionback Interface</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #fff;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      width: 100%;
+      height: 100vh;
+      border: 1px solid #ddd;
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden; 
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+      background: #fff;
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      align-items: center;
+      padding: 12px;
+      background: #d6d6d6;
+      border-bottom: 1px solid #e6e6e6;
+      gap: 12px;
+      height: 20vh;
+      justify-content: center;
+      position: relative;
+    }
+
+    .back-btn {
+      font-size: 20px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .title { 
+      font-size: 14px; 
+      font-weight: 700; 
+      color: #000000;
+      width: 100%;
+      /* margin-left: 30%; */
+      height: 5vh;
+      margin-top: 15px;
+      font-weight: bold;
+      font-size: larger;
+    }
+
+    /* Buttons */
+    .buttons {
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+      background: #fafafa;
+    }
+
+    .btn {
+      display: inline-block;
+      background: #e9e9e9;
+      border: none;
+      border-radius: 6px;
+      padding: 8px 10px;
+      margin: 6px 6px 6px 0;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .section-title {
+      padding: 10px;
+      background: #f7f7f7;
+      border-bottom: 1px solid #eee;
+      font-weight: 700;
+    }
+
+    /* Chat scrollable area */
+    .chat-box {
+      flex-grow: 1;
+      padding: 14px;
+      overflow-y: auto; /* THIS is the only scrollable area */
+      background: #ffffff;
+      /* max-width: 420px; */
+    }
+
+    /* Message styles */
+    .message {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 14px;
+      gap: 10px;
+    }
+
+    .avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #dedede;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: #444;
+      flex-shrink: 0;
+    }
+
+    .bubble {
+      background: #e6e6e6;
+      padding: 10px 14px;
+      border-radius: 18px;
+      max-width: 92%;
+      cursor: pointer;
+      user-select: text;
+      text-decoration: none;
+      color: #333;
+    }
+
+    .voice {
+      background: #2f78d2;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 18px;
+      max-width: 52%;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+      gap: 8px;
+      /* max-width: 30%; */
+    }
+    .voice:focus { outline: 2px solid rgba(47,120,210,0.3); }
+    .voice:hover { background: #2765b0; }
+
+    /* small play icon */
+    .play-icon {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-left: 10px solid white;
+      border-top: 6px solid transparent;
+      border-bottom: 6px solid transparent;
+    }
+
+    /* tiny timestamp or label */
+    .label { font-size: 11px; color: #fff; opacity: .9; }
+
+  </style>
+</head>
+<body>
+
+<div class="container" aria-label="Feedback container">
+  <!-- Header -->
+  <div class="header">
+    <span class="back-btn" onclick="goBack()" role="button" aria-label="Go back">←</span>
+    <span class="title">EVENT 1 (Goods and Services Tax GST)</span>
+  </div>
+
+  <!-- Buttons -->
+  <div class="buttons">
+    <!-- <a href="" onclick="goToEventDescription()" class="btn"> EVENT DESCRIPTION</a> -->
+    <button class="btn" onclick="goToEventDescription()">EVENT DESCRIPTION</button>
+    <button class="btn" id="totalFeedbackBtn" onclick="showTotalFeedback()">TOTAL FEEDBACK</button> 
+  </div>
+
+  <!-- Section Title -->
+  <div class="section-title">FEEDBACK DETAILS 
+  </div>
+
+  <!-- Chat Section (only this part scrolls) -->
+  <div class="chat-box" id="chatBox">
+    <!-- Example of many feedback items (text + voice) -->
+    <div class="message">
+      <div class="avatar">👤</div>
+      <!-- <div class="bubble" onclick="openFeedback('Text Feedback 1')">
+        Feedback provided by citizen in text format (1)</div> -->
+        <a href="../admin/clickfeedback.html" class="bubble">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sapiente, explicabo debitis. Excepturi distinctio dolorem officia, eos repudiandae iure? Dolore, fugit doloremque harum quidem neque laudantium qui voluptatum nam voluptatibus minus?</a>
+    </div>
+
+    <div class="message">
+      <div class="avatar">👤</div>
+      <!-- voice button now holds data-src and passes itself to playVoice -->
+      <div class="voice" role="button" tabindex="0" data-src="voice1.mp3"
+           onclick="playVoice(this)" onkeydown="handleKeyPress(event,this)">
+        <span class="play-icon" aria-hidden="true"></span>
+        <span class="label">Voice feedback (1)</span>
+      </div>
+      <!-- optional fallback audio element (not required) -->
+      <audio id="voice1" src="voice1.mp3" preload="none"><a href="../admin/clickfeedback.html" class="bubble"></a></audio>
+    </div>
+
+    <div class="message">
+      <div class="avatar">👤</div>
+      <div class="bubble" onclick="openFeedback('Text Feedback 2')">
+        Feedback provided by citizen in text format (2)
+      </div>
+    </div>
+
+    <div class="message">
+      <div class="avatar">👤</div>
+      <div class="voice" role="button" tabindex="0" data-src="voice2.mp3"
+           onclick="playVoice(this)" onkeydown="handleKeyPress(event,this)">
+        <span class="play-icon" aria-hidden="true"></span>
+        <span class="label">Voice feedback (2)</span>
+      </div>
+      <audio id="voice2" src="voice2.mp3" preload="none"></audio>
+    </div>
+
+    <!-- Add many more text items so scrolling is visible -->
+    <!-- Text-only items -->
+    <div class="message"><div class="avatar">👤</div><div class="bubble">Feedback (3) ;Lorem ipsum dolor sit, amet consectetur adipisicing elit. Culpa doloribus quis maiores soluta temporibus consequuntur consequatur officia ullam! Libero quam maxime id tempora molestias error, nihil iusto alias odit cumque.</div></div>
+    <div class="message"><div class="avatar">👤</div><div class="bubble">Feedback (4) Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate cumque asperiores tempora quam, impedit repellat velit reiciendis? Consequatur, perferendis asperiores!</div></div>
+    <div class="message"><div class="avatar">👤</div><div class="bubble">Feedback (5) Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dignissimos a suscipit eveniet error deleniti, sequi accusantium commodi quidem cupiditate voluptatem quis laboriosam iste iusto quo aperiam unde illo ipsa quas?</div></div>
+    <div class="message"><div class="avatar">👤</div><div class="bubble">Feedback (6) Lorem ipsum dolor sit amet consectetur, adipisicing elit. Mollitia officia ipsam enim ipsa quaerat dolore et vitae sunt nesciunt ducimus.</div></div>
+    <div class="message"><div class="avatar">👤</div><div class="bubble">Feedback (7) Lorem ipsum dolor sit amet consectetur, adipisicing elit. Accusantium consequuntur tenetur, ex quidem sunt iste dolorum voluptatibus minus perferendis dignissimos. Iure, expedita mollitia? Esse maxime magnam tempora rem eligendi placeat, quas ducimus molestias, neque, non assumenda quisquam. Ab, amet maiores! Voluptates omnis adipisci perferendis eius culpa tenetur libero atque, eos quos nostrum quas quisquam ipsum cumque voluptatibus animi sapiente. Hic?</div></div>
+    <div class="message"><div class="avatar">👤</div><div class="bubble">Feedback (8) Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores, non?</div></div>
+    <div class="message"><div class="avatar">👤</div><div class="bubble">Feedback (9) Lorem ipsum dolor, sit amet consectetur adipisicing elit. Explicabo accusantium veniam sunt dolore veritatis quod, nihil nostrum expedita alias voluptates unde?</div></div>
+    <div class="message"><div class="avatar">👤</div><div class="bubble">Feedback (10) Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae, debitis.</div></div>
+    <div class="message"><div class="avatar">👤</div><div class="bubble">Feedback (11) Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis, voluptates et? Dolores nam voluptatibus assumenda eaque minus, doloremque odit, nisi, quaerat modi reiciendis provident non impedit quis distinctio velit architecto quidem sequi ipsam illum ut. Dicta dolore ut eveniet corporis? Id culpa accusamus quo, provident aliquam deserunt voluptas exercitationem fugiat maxime mollitia recusandae magnam, eaque enim. Enim quod obcaecati doloribus quasi, natus numquam dolore corrupti? Maxime, sit nobis. Maiores, culpa!</div></div>
+    <div class="message"><div class="avatar">👤</div><div class="bubble">Feedback (12) Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reiciendis, aliquid?</div></div>
+    <div class="message"><div class="avatar">👤</div><div class="bubble">Feedback (13) Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, necessitatibus?</div></div>
+    <div class="message"><div class="avatar">👤</div><div class="bubble">Feedback (14) Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus porro natus eveniet et assumenda soluta dicta magnam sit reiciendis officiis quibusdam, ut repellat eos amet odit fugit vel nam quaerat vero? Alias magni ipsa optio aperiam dolor, dolore illum natus sequi reprehenderit velit similique. Tenetur.</div></div>
+    <div class="message"><div class="avatar">👤</div><div class="bubble">Feedback (15) Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus, error.</div></div>
+    <div class="message"><div class="avatar">👤</div><div class="bubble">Feedback (16) Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corporis!</div></div>
+    <div class="message"><div class="avatar">👤</div><div class="bubble">Feedback (17) Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iure laborum molestias cum, nihil corrupti odit quo repellendus. Tenetur ex aspernatur impedit harum eligendi quis voluptate. Exercitationem beatae neque dolore doloremque.</div></div>
+    <div class="message"><div class="avatar">👤</div>
+      <div class="voice" role="button" tabindex="0" data-src="voice3.mp3"
+           onclick="playVoice(this)" onkeydown="handleKeyPress(event,this)">
+        <span class="play-icon" aria-hidden="true"></span>
+        <span class="label">Voice feedback (3)</span>
+      </div>
+      <audio id="voice3" src="voice3.mp3" preload="none"></audio>
+    </div>
+
+    <!-- more to force scroll -->
+    <div class="message"><div class="avatar">👤</div><div class="bubble">Feedback (18) Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sunt, nulla dolor repellat modi neque quo? Minus possimus, maiores harum ipsum earum eveniet unde quidem recusandae itaque. Nisi nihil officiis aliquam.</div></div>
+    <div class="message"><div class="avatar">👤</div><div class="bubble">Feedback (19) Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ab dolores non odit hic, quibusdam voluptatem exercitationem praesentium pariatur dicta facere assumenda incidunt temporibus facilis cum, optio debitis veritatis possimus excepturi!</div></div>
+    <div class="message"><div class="avatar">👤</div><div class="bubble">Feedback (20) Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita facilis voluptatum hic aperiam laboriosam aliquam illum suscipit, quam ipsum non placeat quisquam, nesciunt inventore! Corporis vitae ut inventore deleniti nisi.</div></div>
+    <div class="message"><div class="avatar">👤</div><div class="bubble">Feedback (21) Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum quis eius sequi illum, voluptas perferendis in repellendus nihil, libero quisquam iste, velit reprehenderit exercitationem nam doloribus id ex laudantium animi?</div></div>
+    <div class="message"><div class="avatar">👤</div><div class="bubble">Feedback (22) Lorem, ipsum dolor sit amet consectetur adipisicing elit. Corrupti rerum distinctio beatae vitae nam eaque ipsum blanditiis ratione eligendi accusamus praesentium voluptate, ea necessitatibus quo consequuntur sunt temporibus, nisi vero!</div></div>
+    <div class="message"><div class="avatar">👤</div><div class="bubble">Feedback (23) Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam vitae doloribus assumenda non fuga dignissimos corporis porro excepturi repellat mollitia aspernatur neque, numquam, consectetur officiis in similique odio delectus dolor?</div></div>
+    <div class="message"><div class="avatar">👤</div><div class="bubble">Feedback (24) Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut fuga quia adipisci voluptatibus fugit. Est saepe iusto mollitia illum quod. Delectus itaque consequatur veniam sint ratione eveniet fugiat distinctio mollitia!</div></div>
+    <div class="message"><div class="avatar">👤</div><div class="bubble">Feedback (25) Lorem ipsum dolor sit amet consectetur, adipisicing elit. Inventore vel deserunt ipsum sint accusantium suscipit molestias eveniet? Excepturi maiores voluptates est, laudantium incidunt voluptatum facere, nulla a odit iste quod!</div></div>
+  </div>
+</div>
+
+<script>
+  // Keep a reference to the currently playing audio so we can stop it
+  let currentAudio = null;
+
+  function goBack() {
+    // minimal behavior — replace with history.back() in production
+    alert("Back button clicked!");
+  }
+
+  function showDescription() {
+    alert("Event Description clicked!");
+  }
+
+  function showTotalFeedback() {
+    alert("Total Feedback clicked!");
+  }
+
+  function openFeedback(text) {
+    alert("Text clicked: " + text);
+  }
+  function goToEventDescription(){
+    window.location.href = "eventDescription.html"; // link to your second interface page
+  }
+
+  function goBack(){
+    window.location.href = "feedback_detail.html"; // link to your second interface page
+  }
+
+  // Play voice from a DOM element that contains data-src (robust and simple)
+  function playVoice(el) {
+    if (!el) return;
+    // Determine source in this order: data-src -> matching audio sibling -> id-based audio element
+    let src = el.dataset && el.dataset.src ? el.dataset.src : null;
+
+    if (!src) {
+      // try to find a sibling <audio> tag
+      const audioEl = el.closest('.message')?.querySelector('audio');
+      if (audioEl) src = audioEl.getAttribute('src') || audioEl.src;
+    }
+
+    if (!src) {
+      alert('Audio file not found for this feedback.');
+      return;
+    }
+
+    // If an audio is already playing, stop it (so only one plays at a time)
+    if (currentAudio && !currentAudio.paused) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+    }
+
+    // Create a fresh Audio instance and play it
+    currentAudio = new Audio(src);
+    currentAudio.play().catch(err => {
+      // common reasons: autoplay policy, network error
+      console.error('playback error', err);
+      alert('Unable to play audio. Check the file path or browser autoplay settings.');
+    });
+  }
+
+  // accessibility: allow Enter / Space to trigger the same action
+  function handleKeyPress(e, el) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      playVoice(el);
+    }
+  }
+
+  // Count total feedback dynamically and update tooltip
+function updateFeedbackTooltip() {
+  const feedbackCount = document.querySelectorAll(".chat-box .message").length;
+  const btn = document.getElementById("totalFeedbackBtn");
+  btn.title = `Total ${feedbackCount} feedback`; // hover message
+}
+updateFeedbackTooltip(); // run once on load
+
+</script>
+</body>
+</html>
