@@ -1,0 +1,186 @@
+/* Global Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body and Background Setup */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    overflow: hidden; /* Prevent scrollbars */
+}
+
+/* Background flag container for the animation */
+.background-flag {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex; /* Essential to lay out the flag slices horizontally */
+    overflow: hidden; /* Hide any overflow from slices */
+    z-index: -1; /* Keep it behind all other content */
+    /* REMOVE: background-image: url('images/bhutan_flag.png'); from here */
+    /* Each .flag_img will now carry the background image */
+}
+
+/* Styles for each individual animated flag slice */
+.flag_img {
+    position: relative; /* Allows 'top' property to animate */
+    background-image: url('images/bhutan_flag.png'); /* IMPORTANT: Path to your flag image */
+    background-size: 100vw calc(100vh + 20px); /* Slightly larger height for the wave effect */
+    width: 2px; /* Width of each slice */
+    height: 100vh;
+    display: inline-block; /* Display slices horizontally */
+    animation: wave 300ms ease-in-out infinite alternate; /* The animation itself */
+}
+
+/* Keyframes for the waving animation */
+@keyframes wave {
+    0%   { top: 1px; } /* Start slightly down */
+    100% { top: -1px; } /* Move slightly up */
+}
+
+/* Login Container */
+.container {
+    width: 90%;
+    max-width: 420px;
+    height: auto;
+    padding: 25px;
+    text-align: center;
+    background: rgba(20, 20, 20, 0.75);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    color: #ffffff;
+}
+
+/* Logo */
+.logo {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 15px;
+    border-radius: 50%;
+    border: 2px solid #ffc107;
+}
+
+/* Disclaimer and Warning Text */
+.disclaimer-title {
+    font-weight: bold;
+    font-size: 1.1em;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+.disclaimer-text {
+    font-size: 0.9em;
+    margin-bottom: 5px;
+}
+
+.main-warning {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.main-warning .fas {
+    color: #ffc107;
+    margin-right: 8px;
+}
+
+/* Important Note Box */
+.warning-box {
+    background: #1a1a1a;
+    border-left: 5px solid #ffc107;
+    padding: 15px;
+    margin: 25px 0;
+    border-radius: 0 8px 8px 0;
+    display: flex;
+    align-items: center;
+    text-align: left;
+}
+
+.warning-icon {
+    font-size: 2em;
+    color: #ffc107;
+    margin-right: 15px;
+}
+
+.warning-content .warning-title {
+    font-weight: bold;
+    color: #ffc107;
+    margin-bottom: 5px;
+}
+
+.warning-content .warning-text {
+    font-size: 0.9em;
+    line-height: 1.4;
+    color: #dddddd;
+}
+
+/* Input Group */
+.input-group {
+    text-align: left;
+    margin-bottom: 25px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.9em;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #555;
+    border-radius: 5px;
+    background-color: #333;
+    color: white;
+    font-size: 1em;
+}
+
+/* Button Group */
+.button-group {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn {
+    display: inline-block;
+    text-align: center;
+    background-color: #000000;
+    color: white;
+    border: 1px solid #333;
+    border-radius: 5px;
+    padding: 10px 0;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 1em;
+    width: 48%;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #ffc107;
+    color: #000;
+}
+
+/* Error Message Style */
+.error-message {
+    background-color: #ff4d4d;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    margin-bottom: 15px;
+    font-weight: bold;
+}

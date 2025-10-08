@@ -1,0 +1,95 @@
+/* Global settings */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    /* Using a standard, clean system font */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Prevents scrollbars from the large background */
+}
+
+/* The Animated Background */
+.animated-background {
+    position: fixed;
+    top: -25%; /* Start slightly off-screen */
+    left: -25%; /* Start slightly off-screen */
+    width: 150%; /* Make image larger than the screen */
+    height: 150%; /* Make image larger than the screen */
+    z-index: -1; /* Place it behind all other content */
+    background-image: url('images/bhutan_flag.png'); /* The path to your flag image */
+    background-size: cover;
+    background-position: center;
+    
+    /* Animation definition */
+    animation: pan-background 40s linear infinite alternate;
+}
+
+/* Keyframes define the animation's start and end points */
+@keyframes pan-background {
+    0% {
+        /* Start position */
+        transform: translateX(0) translateY(0);
+    }
+    100% {
+        /* End position (pans diagonally) */
+        transform: translateX(20%) translateY(10%);
+    }
+}
+
+/* The Central White Welcome Box */
+.welcome-container {
+    background-color: #ffffff;
+    padding: 50px 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    width: 90%;
+    max-width: 400px; /* Controls the width of the box */
+}
+
+/* Logo Styling */
+.logo {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 25px;
+}
+
+/* Main Heading "For Better Future" */
+h1 {
+    font-size: 2em;
+    color: #333;
+    margin: 0 0 10px;
+}
+
+/* Subtitle Paragraph */
+p {
+    font-size: 1.1em;
+    color: #666;
+    margin-bottom: 35px;
+}
+
+/* "Get Started" Button Styling */
+.get-started-btn {
+    display: inline-block;
+    background-color: #f0ad4e; /* The specific orange from the image */
+    color: #ffffff;
+    font-size: 1em;
+    font-weight: bold;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.get-started-btn:hover {
+    background-color: #ec971f; /* A slightly darker orange for the hover effect */
+    transform: translateY(-2px); /* Lifts the button slightly on hover */
+}
